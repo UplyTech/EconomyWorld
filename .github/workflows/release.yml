@@ -197,7 +197,7 @@ jobs:
           path: artefacts
 
       - name: Attest the artefacts
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-path: |
             artefacts/npm/*.tgz
