@@ -111,7 +111,7 @@ jobs:
 
       - name: A changed vector is a changed behaviour
         if: steps.touched.outputs.vectors == 'true'
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: release-impact
           message: |
