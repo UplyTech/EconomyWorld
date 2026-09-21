@@ -1,0 +1,104 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "economyworld"
+version = "2.0.0"
+description = "Balances, double-entry bookings, inventories, shops and trades for community bots and forums. Pure calculation: no storage, no platform binding, integer amounts only."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "UplyTech (Tim Hauke)", email = "dev@uplytech.de" }]
+maintainers = [{ name = "UplyTech", email = "dev@uplytech.de" }]
+keywords = [
+    "economy",
+    "currency",
+    "balance",
+    "ledger",
+    "double-entry",
+    "inventory",
+    "shop",
+    "trading",
+    "virtual-currency",
+    "discord",
+    "discord-bot",
+    "community",
+    "uplytech",
+    "economyworld",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+# Zero mandatory dependencies is a hard requirement of the package standard.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/uplytech/economyworld"
+Repository = "https://github.com/uplytech/economyworld"
+Changelog = "https://github.com/uplytech/economyworld/blob/main/CHANGELOG.md"
+Issues = "https://github.com/uplytech/economyworld/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "mypy>=1.11",
+    "ruff>=0.6",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/economyworld"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "examples", "README.md", "LICENSE", "CHANGELOG.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q --strict-markers"
+
+[tool.coverage.run]
+branch = true
+source = ["economyworld"]
+
+[tool.coverage.report]
+# The concept asks for >= 95 %: a wrong formula is wrong everywhere at once.
+fail_under = 95
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+    "\\.\\.\\.",
+]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unreachable = true
+files = ["src/economyworld"]
+
+[tool.ruff]
+line-length = 95
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "RET", "ARG"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ARG"]
+# The Discord stand-ins keep the parameters the real API would need.
+"examples/*" = ["ARG"]

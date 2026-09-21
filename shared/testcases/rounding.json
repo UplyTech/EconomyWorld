@@ -1,0 +1,390 @@
+{
+  "formatVersion": 1,
+  "description": "Integer division under each rounding mode. Symmetric about zero, so the sign of an amount never changes how far it is rounded.",
+  "cases": [
+    {
+      "numerator": 7,
+      "denominator": 2,
+      "mode": "DOWN",
+      "expected": 3
+    },
+    {
+      "numerator": 7,
+      "denominator": 2,
+      "mode": "UP",
+      "expected": 4
+    },
+    {
+      "numerator": 7,
+      "denominator": 2,
+      "mode": "HALF_UP",
+      "expected": 4
+    },
+    {
+      "numerator": 7,
+      "denominator": 2,
+      "mode": "HALF_EVEN",
+      "expected": 4
+    },
+    {
+      "numerator": -7,
+      "denominator": 2,
+      "mode": "DOWN",
+      "expected": -3
+    },
+    {
+      "numerator": -7,
+      "denominator": 2,
+      "mode": "UP",
+      "expected": -4
+    },
+    {
+      "numerator": -7,
+      "denominator": 2,
+      "mode": "HALF_UP",
+      "expected": -4
+    },
+    {
+      "numerator": -7,
+      "denominator": 2,
+      "mode": "HALF_EVEN",
+      "expected": -4
+    },
+    {
+      "numerator": 7,
+      "denominator": -2,
+      "mode": "DOWN",
+      "expected": -3
+    },
+    {
+      "numerator": 7,
+      "denominator": -2,
+      "mode": "UP",
+      "expected": -4
+    },
+    {
+      "numerator": 7,
+      "denominator": -2,
+      "mode": "HALF_UP",
+      "expected": -4
+    },
+    {
+      "numerator": 7,
+      "denominator": -2,
+      "mode": "HALF_EVEN",
+      "expected": -4
+    },
+    {
+      "numerator": 5,
+      "denominator": 2,
+      "mode": "DOWN",
+      "expected": 2
+    },
+    {
+      "numerator": 5,
+      "denominator": 2,
+      "mode": "UP",
+      "expected": 3
+    },
+    {
+      "numerator": 5,
+      "denominator": 2,
+      "mode": "HALF_UP",
+      "expected": 3
+    },
+    {
+      "numerator": 5,
+      "denominator": 2,
+      "mode": "HALF_EVEN",
+      "expected": 2
+    },
+    {
+      "numerator": -5,
+      "denominator": 2,
+      "mode": "DOWN",
+      "expected": -2
+    },
+    {
+      "numerator": -5,
+      "denominator": 2,
+      "mode": "UP",
+      "expected": -3
+    },
+    {
+      "numerator": -5,
+      "denominator": 2,
+      "mode": "HALF_UP",
+      "expected": -3
+    },
+    {
+      "numerator": -5,
+      "denominator": 2,
+      "mode": "HALF_EVEN",
+      "expected": -2
+    },
+    {
+      "numerator": 1,
+      "denominator": 1000,
+      "mode": "DOWN",
+      "expected": 0
+    },
+    {
+      "numerator": 1,
+      "denominator": 1000,
+      "mode": "UP",
+      "expected": 1
+    },
+    {
+      "numerator": 1,
+      "denominator": 1000,
+      "mode": "HALF_UP",
+      "expected": 0
+    },
+    {
+      "numerator": 1,
+      "denominator": 1000,
+      "mode": "HALF_EVEN",
+      "expected": 0
+    },
+    {
+      "numerator": -1,
+      "denominator": 1000,
+      "mode": "DOWN",
+      "expected": 0
+    },
+    {
+      "numerator": -1,
+      "denominator": 1000,
+      "mode": "UP",
+      "expected": -1
+    },
+    {
+      "numerator": -1,
+      "denominator": 1000,
+      "mode": "HALF_UP",
+      "expected": 0
+    },
+    {
+      "numerator": -1,
+      "denominator": 1000,
+      "mode": "HALF_EVEN",
+      "expected": 0
+    },
+    {
+      "numerator": 0,
+      "denominator": 7,
+      "mode": "DOWN",
+      "expected": 0
+    },
+    {
+      "numerator": 0,
+      "denominator": 7,
+      "mode": "UP",
+      "expected": 0
+    },
+    {
+      "numerator": 0,
+      "denominator": 7,
+      "mode": "HALF_UP",
+      "expected": 0
+    },
+    {
+      "numerator": 0,
+      "denominator": 7,
+      "mode": "HALF_EVEN",
+      "expected": 0
+    },
+    {
+      "numerator": 100,
+      "denominator": 4,
+      "mode": "DOWN",
+      "expected": 25
+    },
+    {
+      "numerator": 100,
+      "denominator": 4,
+      "mode": "UP",
+      "expected": 25
+    },
+    {
+      "numerator": 100,
+      "denominator": 4,
+      "mode": "HALF_UP",
+      "expected": 25
+    },
+    {
+      "numerator": 100,
+      "denominator": 4,
+      "mode": "HALF_EVEN",
+      "expected": 25
+    },
+    {
+      "numerator": 12345,
+      "denominator": 100,
+      "mode": "DOWN",
+      "expected": 123
+    },
+    {
+      "numerator": 12345,
+      "denominator": 100,
+      "mode": "UP",
+      "expected": 124
+    },
+    {
+      "numerator": 12345,
+      "denominator": 100,
+      "mode": "HALF_UP",
+      "expected": 123
+    },
+    {
+      "numerator": 12345,
+      "denominator": 100,
+      "mode": "HALF_EVEN",
+      "expected": 123
+    },
+    {
+      "numerator": -12345,
+      "denominator": 100,
+      "mode": "DOWN",
+      "expected": -123
+    },
+    {
+      "numerator": -12345,
+      "denominator": 100,
+      "mode": "UP",
+      "expected": -124
+    },
+    {
+      "numerator": -12345,
+      "denominator": 100,
+      "mode": "HALF_UP",
+      "expected": -123
+    },
+    {
+      "numerator": -12345,
+      "denominator": 100,
+      "mode": "HALF_EVEN",
+      "expected": -123
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 3,
+      "mode": "DOWN",
+      "expected": 3002399751580330
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 3,
+      "mode": "UP",
+      "expected": 3002399751580331
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 3,
+      "mode": "HALF_UP",
+      "expected": 3002399751580330
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 3,
+      "mode": "HALF_EVEN",
+      "expected": 3002399751580330
+    },
+    {
+      "numerator": 9007199254737658,
+      "denominator": 360,
+      "mode": "DOWN",
+      "expected": 25019997929826
+    },
+    {
+      "numerator": 9007199254737658,
+      "denominator": 360,
+      "mode": "UP",
+      "expected": 25019997929827
+    },
+    {
+      "numerator": 9007199254737658,
+      "denominator": 360,
+      "mode": "HALF_UP",
+      "expected": 25019997929827
+    },
+    {
+      "numerator": 9007199254737658,
+      "denominator": 360,
+      "mode": "HALF_EVEN",
+      "expected": 25019997929827
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 7,
+      "mode": "DOWN",
+      "expected": 1286742750677284
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 7,
+      "mode": "UP",
+      "expected": 1286742750677285
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 7,
+      "mode": "HALF_UP",
+      "expected": 1286742750677284
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 7,
+      "mode": "HALF_EVEN",
+      "expected": 1286742750677284
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 9973,
+      "mode": "DOWN",
+      "expected": 903158453298
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 9973,
+      "mode": "UP",
+      "expected": 903158453299
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 9973,
+      "mode": "HALF_UP",
+      "expected": 903158453298
+    },
+    {
+      "numerator": 9007199254740991,
+      "denominator": 9973,
+      "mode": "HALF_EVEN",
+      "expected": 903158453298
+    },
+    {
+      "numerator": 9007199254740658,
+      "denominator": 12,
+      "mode": "DOWN",
+      "expected": 750599937895054
+    },
+    {
+      "numerator": 9007199254740658,
+      "denominator": 12,
+      "mode": "UP",
+      "expected": 750599937895055
+    },
+    {
+      "numerator": 9007199254740658,
+      "denominator": 12,
+      "mode": "HALF_UP",
+      "expected": 750599937895055
+    },
+    {
+      "numerator": 9007199254740658,
+      "denominator": 12,
+      "mode": "HALF_EVEN",
+      "expected": 750599937895055
+    }
+  ]
+}

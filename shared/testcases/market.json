@@ -1,0 +1,363 @@
+{
+  "formatVersion": 1,
+  "description": "Order matching by price, then time, then id, and currency exchange at a rate the caller supplies. The tie-break is in the vectors because an order book whose ties depend on iteration order is not reproducible.",
+  "books": [
+    {
+      "id": "sweeps-two-levels",
+      "book": [
+        [
+          "s1",
+          "bob",
+          "SELL",
+          100,
+          5,
+          0
+        ],
+        [
+          "s2",
+          "cai",
+          "SELL",
+          110,
+          5,
+          0
+        ],
+        [
+          "s3",
+          "dee",
+          "SELL",
+          120,
+          5,
+          0
+        ]
+      ],
+      "incoming": [
+        "b1",
+        "ana",
+        "BUY",
+        115,
+        20,
+        1
+      ],
+      "expected": {
+        "fills": [
+          {
+            "buyOrderId": "b1",
+            "sellOrderId": "s1",
+            "quantity": 5,
+            "unitPrice": 100,
+            "consideration": 500
+          },
+          {
+            "buyOrderId": "b1",
+            "sellOrderId": "s2",
+            "quantity": 5,
+            "unitPrice": 110,
+            "consideration": 550
+          }
+        ],
+        "filledQuantity": 10,
+        "totalConsideration": 1050,
+        "book": [
+          {
+            "orderId": "b1",
+            "filled": 10,
+            "state": "PARTIALLY_FILLED"
+          },
+          {
+            "orderId": "s3",
+            "filled": 0,
+            "state": "OPEN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "time-breaks-a-price-tie",
+      "book": [
+        [
+          "second",
+          "bob",
+          "SELL",
+          100,
+          5,
+          10
+        ],
+        [
+          "first",
+          "cai",
+          "SELL",
+          100,
+          5,
+          0
+        ]
+      ],
+      "incoming": [
+        "b1",
+        "ana",
+        "BUY",
+        100,
+        5,
+        20
+      ],
+      "expected": {
+        "fills": [
+          {
+            "buyOrderId": "b1",
+            "sellOrderId": "first",
+            "quantity": 5,
+            "unitPrice": 100,
+            "consideration": 500
+          }
+        ],
+        "filledQuantity": 5,
+        "totalConsideration": 500,
+        "book": [
+          {
+            "orderId": "second",
+            "filled": 0,
+            "state": "OPEN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "id-breaks-a-price-and-time-tie",
+      "book": [
+        [
+          "bbb",
+          "bob",
+          "SELL",
+          100,
+          5,
+          0
+        ],
+        [
+          "aaa",
+          "cai",
+          "SELL",
+          100,
+          5,
+          0
+        ]
+      ],
+      "incoming": [
+        "b1",
+        "ana",
+        "BUY",
+        100,
+        5,
+        1
+      ],
+      "expected": {
+        "fills": [
+          {
+            "buyOrderId": "b1",
+            "sellOrderId": "aaa",
+            "quantity": 5,
+            "unitPrice": 100,
+            "consideration": 500
+          }
+        ],
+        "filledQuantity": 5,
+        "totalConsideration": 500,
+        "book": [
+          {
+            "orderId": "bbb",
+            "filled": 0,
+            "state": "OPEN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "no-self-trade",
+      "book": [
+        [
+          "s1",
+          "ana",
+          "SELL",
+          100,
+          5,
+          0
+        ]
+      ],
+      "incoming": [
+        "b1",
+        "ana",
+        "BUY",
+        100,
+        5,
+        1
+      ],
+      "expected": {
+        "fills": [],
+        "filledQuantity": 0,
+        "totalConsideration": 0,
+        "book": [
+          {
+            "orderId": "b1",
+            "filled": 0,
+            "state": "OPEN"
+          },
+          {
+            "orderId": "s1",
+            "filled": 0,
+            "state": "OPEN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rests-when-it-does-not-cross",
+      "book": [
+        [
+          "s1",
+          "bob",
+          "SELL",
+          120,
+          5,
+          0
+        ]
+      ],
+      "incoming": [
+        "b1",
+        "ana",
+        "BUY",
+        100,
+        5,
+        1
+      ],
+      "expected": {
+        "fills": [],
+        "filledQuantity": 0,
+        "totalConsideration": 0,
+        "book": [
+          {
+            "orderId": "b1",
+            "filled": 0,
+            "state": "OPEN"
+          },
+          {
+            "orderId": "s1",
+            "filled": 0,
+            "state": "OPEN"
+          }
+        ]
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "amount": 400,
+      "numerator": 1,
+      "denominator": 4,
+      "rounding": "DOWN",
+      "expected": 100
+    },
+    {
+      "amount": 400,
+      "numerator": 1,
+      "denominator": 4,
+      "rounding": "UP",
+      "expected": 100
+    },
+    {
+      "amount": 400,
+      "numerator": 1,
+      "denominator": 4,
+      "rounding": "HALF_UP",
+      "expected": 100
+    },
+    {
+      "amount": 400,
+      "numerator": 1,
+      "denominator": 4,
+      "rounding": "HALF_EVEN",
+      "expected": 100
+    },
+    {
+      "amount": 10,
+      "numerator": 1,
+      "denominator": 3,
+      "rounding": "DOWN",
+      "expected": 3
+    },
+    {
+      "amount": 10,
+      "numerator": 1,
+      "denominator": 3,
+      "rounding": "UP",
+      "expected": 4
+    },
+    {
+      "amount": 10,
+      "numerator": 1,
+      "denominator": 3,
+      "rounding": "HALF_UP",
+      "expected": 3
+    },
+    {
+      "amount": 10,
+      "numerator": 1,
+      "denominator": 3,
+      "rounding": "HALF_EVEN",
+      "expected": 3
+    },
+    {
+      "amount": 999,
+      "numerator": 7,
+      "denominator": 13,
+      "rounding": "DOWN",
+      "expected": 537
+    },
+    {
+      "amount": 999,
+      "numerator": 7,
+      "denominator": 13,
+      "rounding": "UP",
+      "expected": 538
+    },
+    {
+      "amount": 999,
+      "numerator": 7,
+      "denominator": 13,
+      "rounding": "HALF_UP",
+      "expected": 538
+    },
+    {
+      "amount": 999,
+      "numerator": 7,
+      "denominator": 13,
+      "rounding": "HALF_EVEN",
+      "expected": 538
+    },
+    {
+      "amount": 1,
+      "numerator": 100,
+      "denominator": 1,
+      "rounding": "DOWN",
+      "expected": 100
+    },
+    {
+      "amount": 1,
+      "numerator": 100,
+      "denominator": 1,
+      "rounding": "UP",
+      "expected": 100
+    },
+    {
+      "amount": 1,
+      "numerator": 100,
+      "denominator": 1,
+      "rounding": "HALF_UP",
+      "expected": 100
+    },
+    {
+      "amount": 1,
+      "numerator": 100,
+      "denominator": 1,
+      "rounding": "HALF_EVEN",
+      "expected": 100
+    }
+  ]
+}

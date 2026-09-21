@@ -1,0 +1,106 @@
+name: Rate or schedule change proposal
+description: A change to what interest, a fee or an amortisation schedule computes
+title: "feat!: rate change — "
+labels: [financial, breaking-change]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **A change to what a rate or a schedule computes is a major version, always.**
+
+        A booking change moves one transaction. A schedule change moves every
+        instalment of every loan already open — somebody who agreed to pay
+        10,662 a month finds a different number on their statement, for the rest
+        of the term, and reads it as the guild changing the deal.
+
+        This template exists so the decision is made with the numbers in front
+        of it. It never goes stale, and it is not merged quickly.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part
+      options:
+        - Interest accrual (interest.py / interest.ts) — compound or simple
+        - Amortisation schedules (interest.py / interest.ts) — the level payment or a method
+        - Deposits (bank.py / bank.ts) — interest, maturity, the early-withdrawal penalty
+        - Credit (credit.py / credit.ts) — the repayment split, arrears, settlement, write-off
+        - Fees (tax.py / tax.ts) — a rule shape, a tier, the inclusive/on-top rule
+        - Rounding (rounding.py / rounding.ts) — a mode, or which mode something defaults to
+        - Billing (billing.py / billing.ts) — catch-up, pausing, financed purchases
+        - Markets (market.ts / market.py) — matching, priority, or the exchange
+    validations:
+      required: true
+
+  - type: textarea
+    id: change
+    attributes:
+      label: The change
+      description: What it computes now, and what it would compute instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why the current numbers are wrong
+      description: |
+        Not "wrong" as in "I would have chosen differently" — the defaults are
+        already somebody's judgement, and a preference is a parameter rather
+        than a formula change. Wrong as in: it contradicts the arithmetic it
+        claims to implement, it violates a property the library states, or it
+        produces a schedule no lender or borrower would accept.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference
+    attributes:
+      label: What it is checked against
+      description: |
+        Schedules are built by iterating whole units, not from a closed form,
+        and every schedule checks itself before it is returned: each row adds
+        up, the last closing balance is zero, and the totals stay inside the
+        range both editions can hold. Say which of those your change touches,
+        and which test pins the new behaviour down.
+    validations:
+      required: true
+
+  - type: textarea
+    id: portfolio
+    attributes:
+      label: What it does to a portfolio
+      description: |
+        Replay a set of loans and deposits through the old and the new
+        arithmetic and show what moves. `shared/testcases/credit.json` and
+        `interest.json` are already such a set. How many instalments change,
+        and by how much?
+      render: text
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: determinism
+    attributes:
+      label: Determinism
+      description: The library's whole promise, and the easiest thing to break here.
+      options:
+        - label: The change is integer arithmetic throughout — no float reaches a value a caller can see.
+          required: true
+        - label: Both editions are changed together, and produce identical numbers.
+          required: true
+        - label: The differential harness passes over at least 20,000 cases on a fresh seed.
+          required: true
+        - label: The books still close — every posting's lines sum to zero, and the property runs still pass.
+          required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: What a rate change needs before it can ship
+      options:
+        - label: The portfolio replay above.
+        - label: An entry in CHANGELOG.md under a **major** version.
+        - label: Regenerated `shared/testcases/`, with the diff understood rather than skimmed.
+        - label: A note for operators saying what will visibly change on their members' statements.
+        - label: A property test, if the change is one — see CONTRIBUTING.md on why several of the defects fixed in 2.0.0 were found by property runs and by the differential harness rather than by an example.

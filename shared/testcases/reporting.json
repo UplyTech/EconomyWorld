@@ -1,0 +1,183 @@
+{
+  "formatVersion": 1,
+  "description": "Inequality and distribution, computed on integers. A community comparing its Gini figure with another's must be comparing the same number.",
+  "gini": [
+    {
+      "balances": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "expected": 0
+    },
+    {
+      "balances": [
+        50,
+        100,
+        100,
+        150
+      ],
+      "expected": 188
+    },
+    {
+      "balances": [
+        1,
+        1,
+        1,
+        397
+      ],
+      "expected": 743
+    },
+    {
+      "balances": [
+        0,
+        0,
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "balances": [
+        7
+      ],
+      "expected": 0
+    },
+    {
+      "balances": [],
+      "expected": 0
+    },
+    {
+      "balances": [
+        5,
+        1,
+        90,
+        4
+      ],
+      "expected": 670
+    },
+    {
+      "balances": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "expected": 300
+    },
+    {
+      "balances": [
+        9000000000000,
+        9000000000001,
+        9000000000002
+      ],
+      "expected": 0
+    }
+  ],
+  "distributions": [
+    {
+      "balances": {
+        "ana": 100,
+        "ben": 200,
+        "cai": 300
+      },
+      "expected": {
+        "holders": 3,
+        "total": 600,
+        "median": 200,
+        "mean": 200,
+        "giniPermille": 222
+      },
+      "topHolders": [
+        {
+          "key": "guild-1/cai/COIN",
+          "amount": 300
+        },
+        {
+          "key": "guild-1/ben/COIN",
+          "amount": 200
+        },
+        {
+          "key": "guild-1/ana/COIN",
+          "amount": 100
+        }
+      ]
+    },
+    {
+      "balances": {
+        "ana": 10,
+        "ben": 20,
+        "cai": 30,
+        "dee": 40
+      },
+      "expected": {
+        "holders": 4,
+        "total": 100,
+        "median": 25,
+        "mean": 25,
+        "giniPermille": 250
+      },
+      "topHolders": [
+        {
+          "key": "guild-1/dee/COIN",
+          "amount": 40
+        },
+        {
+          "key": "guild-1/cai/COIN",
+          "amount": 30
+        },
+        {
+          "key": "guild-1/ben/COIN",
+          "amount": 20
+        }
+      ]
+    },
+    {
+      "balances": {
+        "ana": 1
+      },
+      "expected": {
+        "holders": 1,
+        "total": 1,
+        "median": 1,
+        "mean": 1,
+        "giniPermille": 0
+      },
+      "topHolders": [
+        {
+          "key": "guild-1/ana/COIN",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "balances": {
+        "ana": 0,
+        "ben": 0
+      },
+      "expected": {
+        "holders": 2,
+        "total": 0,
+        "median": 0,
+        "mean": 0,
+        "giniPermille": 0
+      },
+      "topHolders": [
+        {
+          "key": "guild-1/ana/COIN",
+          "amount": 0
+        },
+        {
+          "key": "guild-1/ben/COIN",
+          "amount": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "formatVersion": 1,
+  "description": "Subscription schedules and payroll splits. A member pays for the time that passed and not a period more, however often the caller's scheduler runs.",
+  "subscriptions": [
+    {
+      "intervalMs": 86400000,
+      "amount": 100,
+      "elapsedMs": [
+        0,
+        86399999,
+        86400000,
+        259200000,
+        864000000
+      ],
+      "expected": [
+        {
+          "elapsedMs": 0,
+          "due": 0
+        },
+        {
+          "elapsedMs": 86399999,
+          "due": 0
+        },
+        {
+          "elapsedMs": 86400000,
+          "due": 1
+        },
+        {
+          "elapsedMs": 259200000,
+          "due": 3
+        },
+        {
+          "elapsedMs": 864000000,
+          "due": 10
+        }
+      ],
+      "nextChargeAt": 1700086400000
+    },
+    {
+      "intervalMs": 3600000,
+      "amount": 7,
+      "elapsedMs": [
+        1800000,
+        3600000,
+        18000001
+      ],
+      "expected": [
+        {
+          "elapsedMs": 1800000,
+          "due": 0
+        },
+        {
+          "elapsedMs": 3600000,
+          "due": 1
+        },
+        {
+          "elapsedMs": 18000001,
+          "due": 5
+        }
+      ],
+      "nextChargeAt": 1700003600000
+    },
+    {
+      "intervalMs": 604800000,
+      "amount": 2500,
+      "elapsedMs": [
+        518400000,
+        604800000,
+        2592000000
+      ],
+      "expected": [
+        {
+          "elapsedMs": 518400000,
+          "due": 0
+        },
+        {
+          "elapsedMs": 604800000,
+          "due": 1
+        },
+        {
+          "elapsedMs": 2592000000,
+          "due": 4
+        }
+      ],
+      "nextChargeAt": 1700604800000
+    }
+  ],
+  "payrolls": [
+    {
+      "total": 1000,
+      "count": 3,
+      "weights": null,
+      "expected": [
+        {
+          "owner": "m0",
+          "amount": 334
+        },
+        {
+          "owner": "m1",
+          "amount": 333
+        },
+        {
+          "owner": "m2",
+          "amount": 333
+        }
+      ]
+    },
+    {
+      "total": 10,
+      "count": 3,
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "expected": [
+        {
+          "owner": "m0",
+          "amount": 4
+        },
+        {
+          "owner": "m1",
+          "amount": 3
+        },
+        {
+          "owner": "m2",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "total": 1000,
+      "count": 2,
+      "weights": [
+        3,
+        1
+      ],
+      "expected": [
+        {
+          "owner": "m0",
+          "amount": 750
+        },
+        {
+          "owner": "m1",
+          "amount": 250
+        }
+      ]
+    },
+    {
+      "total": 99999,
+      "count": 7,
+      "weights": [
+        5,
+        4,
+        3,
+        2,
+        1,
+        0,
+        9
+      ],
+      "expected": [
+        {
+          "owner": "m0",
+          "amount": 20833
+        },
+        {
+          "owner": "m1",
+          "amount": 16666
+        },
+        {
+          "owner": "m2",
+          "amount": 12500
+        },
+        {
+          "owner": "m3",
+          "amount": 8333
+        },
+        {
+          "owner": "m4",
+          "amount": 4167
+        },
+        {
+          "owner": "m6",
+          "amount": 37500
+        }
+      ]
+    }
+  ],
+  "financed": [
+    {
+      "cashPrice": 120000,
+      "rateBasisPoints": 100,
+      "instalments": 12,
+      "expected": {
+        "totalPayable": 127936,
+        "costOfCredit": 7936
+      }
+    },
+    {
+      "cashPrice": 1200,
+      "rateBasisPoints": 0,
+      "instalments": 12,
+      "expected": {
+        "totalPayable": 1200,
+        "costOfCredit": 0
+      }
+    },
+    {
+      "cashPrice": 999,
+      "rateBasisPoints": 1500,
+      "instalments": 3,
+      "expected": {
+        "totalPayable": 1311,
+        "costOfCredit": 312
+      }
+    }
+  ]
+}

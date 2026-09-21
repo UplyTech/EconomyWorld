@@ -1,0 +1,898 @@
+{
+  "formatVersion": 1,
+  "description": "Fee rules quoted on a range of amounts. A fee is the same number in both editions or a member is charged differently by the same bot.",
+  "rules": [
+    {
+      "key": "flat",
+      "rule": {
+        "mode": "ON_TOP",
+        "flat": 25,
+        "basisPoints": 0,
+        "minimum": 0,
+        "maximum": null,
+        "rounding": "DOWN",
+        "tiers": []
+      },
+      "quotes": [
+        {
+          "amount": 0,
+          "expected": {
+            "fee": 25,
+            "payerPays": 25,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 1,
+          "expected": {
+            "fee": 25,
+            "payerPays": 26,
+            "recipientReceives": 1
+          }
+        },
+        {
+          "amount": 99,
+          "expected": {
+            "fee": 25,
+            "payerPays": 124,
+            "recipientReceives": 99
+          }
+        },
+        {
+          "amount": 100,
+          "expected": {
+            "fee": 25,
+            "payerPays": 125,
+            "recipientReceives": 100
+          }
+        },
+        {
+          "amount": 999,
+          "expected": {
+            "fee": 25,
+            "payerPays": 1024,
+            "recipientReceives": 999
+          }
+        },
+        {
+          "amount": 1000,
+          "expected": {
+            "fee": 25,
+            "payerPays": 1025,
+            "recipientReceives": 1000
+          }
+        },
+        {
+          "amount": 1001,
+          "expected": {
+            "fee": 25,
+            "payerPays": 1026,
+            "recipientReceives": 1001
+          }
+        },
+        {
+          "amount": 9999,
+          "expected": {
+            "fee": 25,
+            "payerPays": 10024,
+            "recipientReceives": 9999
+          }
+        },
+        {
+          "amount": 10000,
+          "expected": {
+            "fee": 25,
+            "payerPays": 10025,
+            "recipientReceives": 10000
+          }
+        },
+        {
+          "amount": 55555,
+          "expected": {
+            "fee": 25,
+            "payerPays": 55580,
+            "recipientReceives": 55555
+          }
+        },
+        {
+          "amount": 1000000,
+          "expected": {
+            "fee": 25,
+            "payerPays": 1000025,
+            "recipientReceives": 1000000
+          }
+        }
+      ]
+    },
+    {
+      "key": "rate",
+      "rule": {
+        "mode": "ON_TOP",
+        "flat": 0,
+        "basisPoints": 250,
+        "minimum": 0,
+        "maximum": null,
+        "rounding": "DOWN",
+        "tiers": []
+      },
+      "quotes": [
+        {
+          "amount": 0,
+          "expected": {
+            "fee": 0,
+            "payerPays": 0,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 1,
+          "expected": {
+            "fee": 0,
+            "payerPays": 1,
+            "recipientReceives": 1
+          }
+        },
+        {
+          "amount": 99,
+          "expected": {
+            "fee": 2,
+            "payerPays": 101,
+            "recipientReceives": 99
+          }
+        },
+        {
+          "amount": 100,
+          "expected": {
+            "fee": 2,
+            "payerPays": 102,
+            "recipientReceives": 100
+          }
+        },
+        {
+          "amount": 999,
+          "expected": {
+            "fee": 24,
+            "payerPays": 1023,
+            "recipientReceives": 999
+          }
+        },
+        {
+          "amount": 1000,
+          "expected": {
+            "fee": 25,
+            "payerPays": 1025,
+            "recipientReceives": 1000
+          }
+        },
+        {
+          "amount": 1001,
+          "expected": {
+            "fee": 25,
+            "payerPays": 1026,
+            "recipientReceives": 1001
+          }
+        },
+        {
+          "amount": 9999,
+          "expected": {
+            "fee": 249,
+            "payerPays": 10248,
+            "recipientReceives": 9999
+          }
+        },
+        {
+          "amount": 10000,
+          "expected": {
+            "fee": 250,
+            "payerPays": 10250,
+            "recipientReceives": 10000
+          }
+        },
+        {
+          "amount": 55555,
+          "expected": {
+            "fee": 1388,
+            "payerPays": 56943,
+            "recipientReceives": 55555
+          }
+        },
+        {
+          "amount": 1000000,
+          "expected": {
+            "fee": 25000,
+            "payerPays": 1025000,
+            "recipientReceives": 1000000
+          }
+        }
+      ]
+    },
+    {
+      "key": "both",
+      "rule": {
+        "mode": "ON_TOP",
+        "flat": 5,
+        "basisPoints": 175,
+        "minimum": 10,
+        "maximum": 900,
+        "rounding": "DOWN",
+        "tiers": []
+      },
+      "quotes": [
+        {
+          "amount": 0,
+          "expected": {
+            "fee": 10,
+            "payerPays": 10,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 1,
+          "expected": {
+            "fee": 10,
+            "payerPays": 11,
+            "recipientReceives": 1
+          }
+        },
+        {
+          "amount": 99,
+          "expected": {
+            "fee": 10,
+            "payerPays": 109,
+            "recipientReceives": 99
+          }
+        },
+        {
+          "amount": 100,
+          "expected": {
+            "fee": 10,
+            "payerPays": 110,
+            "recipientReceives": 100
+          }
+        },
+        {
+          "amount": 999,
+          "expected": {
+            "fee": 22,
+            "payerPays": 1021,
+            "recipientReceives": 999
+          }
+        },
+        {
+          "amount": 1000,
+          "expected": {
+            "fee": 22,
+            "payerPays": 1022,
+            "recipientReceives": 1000
+          }
+        },
+        {
+          "amount": 1001,
+          "expected": {
+            "fee": 22,
+            "payerPays": 1023,
+            "recipientReceives": 1001
+          }
+        },
+        {
+          "amount": 9999,
+          "expected": {
+            "fee": 179,
+            "payerPays": 10178,
+            "recipientReceives": 9999
+          }
+        },
+        {
+          "amount": 10000,
+          "expected": {
+            "fee": 180,
+            "payerPays": 10180,
+            "recipientReceives": 10000
+          }
+        },
+        {
+          "amount": 55555,
+          "expected": {
+            "fee": 900,
+            "payerPays": 56455,
+            "recipientReceives": 55555
+          }
+        },
+        {
+          "amount": 1000000,
+          "expected": {
+            "fee": 900,
+            "payerPays": 1000900,
+            "recipientReceives": 1000000
+          }
+        }
+      ]
+    },
+    {
+      "key": "inclusive",
+      "rule": {
+        "mode": "INCLUSIVE",
+        "flat": 0,
+        "basisPoints": 250,
+        "minimum": 0,
+        "maximum": null,
+        "rounding": "DOWN",
+        "tiers": []
+      },
+      "quotes": [
+        {
+          "amount": 0,
+          "expected": {
+            "fee": 0,
+            "payerPays": 0,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 1,
+          "expected": {
+            "fee": 0,
+            "payerPays": 1,
+            "recipientReceives": 1
+          }
+        },
+        {
+          "amount": 99,
+          "expected": {
+            "fee": 2,
+            "payerPays": 99,
+            "recipientReceives": 97
+          }
+        },
+        {
+          "amount": 100,
+          "expected": {
+            "fee": 2,
+            "payerPays": 100,
+            "recipientReceives": 98
+          }
+        },
+        {
+          "amount": 999,
+          "expected": {
+            "fee": 24,
+            "payerPays": 999,
+            "recipientReceives": 975
+          }
+        },
+        {
+          "amount": 1000,
+          "expected": {
+            "fee": 25,
+            "payerPays": 1000,
+            "recipientReceives": 975
+          }
+        },
+        {
+          "amount": 1001,
+          "expected": {
+            "fee": 25,
+            "payerPays": 1001,
+            "recipientReceives": 976
+          }
+        },
+        {
+          "amount": 9999,
+          "expected": {
+            "fee": 249,
+            "payerPays": 9999,
+            "recipientReceives": 9750
+          }
+        },
+        {
+          "amount": 10000,
+          "expected": {
+            "fee": 250,
+            "payerPays": 10000,
+            "recipientReceives": 9750
+          }
+        },
+        {
+          "amount": 55555,
+          "expected": {
+            "fee": 1388,
+            "payerPays": 55555,
+            "recipientReceives": 54167
+          }
+        },
+        {
+          "amount": 1000000,
+          "expected": {
+            "fee": 25000,
+            "payerPays": 1000000,
+            "recipientReceives": 975000
+          }
+        }
+      ]
+    },
+    {
+      "key": "inclusive-flat",
+      "rule": {
+        "mode": "INCLUSIVE",
+        "flat": 50,
+        "basisPoints": 0,
+        "minimum": 0,
+        "maximum": null,
+        "rounding": "DOWN",
+        "tiers": []
+      },
+      "quotes": [
+        {
+          "amount": 0,
+          "expected": {
+            "fee": 0,
+            "payerPays": 0,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 1,
+          "expected": {
+            "fee": 1,
+            "payerPays": 1,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 99,
+          "expected": {
+            "fee": 50,
+            "payerPays": 99,
+            "recipientReceives": 49
+          }
+        },
+        {
+          "amount": 100,
+          "expected": {
+            "fee": 50,
+            "payerPays": 100,
+            "recipientReceives": 50
+          }
+        },
+        {
+          "amount": 999,
+          "expected": {
+            "fee": 50,
+            "payerPays": 999,
+            "recipientReceives": 949
+          }
+        },
+        {
+          "amount": 1000,
+          "expected": {
+            "fee": 50,
+            "payerPays": 1000,
+            "recipientReceives": 950
+          }
+        },
+        {
+          "amount": 1001,
+          "expected": {
+            "fee": 50,
+            "payerPays": 1001,
+            "recipientReceives": 951
+          }
+        },
+        {
+          "amount": 9999,
+          "expected": {
+            "fee": 50,
+            "payerPays": 9999,
+            "recipientReceives": 9949
+          }
+        },
+        {
+          "amount": 10000,
+          "expected": {
+            "fee": 50,
+            "payerPays": 10000,
+            "recipientReceives": 9950
+          }
+        },
+        {
+          "amount": 55555,
+          "expected": {
+            "fee": 50,
+            "payerPays": 55555,
+            "recipientReceives": 55505
+          }
+        },
+        {
+          "amount": 1000000,
+          "expected": {
+            "fee": 50,
+            "payerPays": 1000000,
+            "recipientReceives": 999950
+          }
+        }
+      ]
+    },
+    {
+      "key": "up",
+      "rule": {
+        "mode": "ON_TOP",
+        "flat": 0,
+        "basisPoints": 1,
+        "minimum": 0,
+        "maximum": null,
+        "rounding": "UP",
+        "tiers": []
+      },
+      "quotes": [
+        {
+          "amount": 0,
+          "expected": {
+            "fee": 0,
+            "payerPays": 0,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 1,
+          "expected": {
+            "fee": 1,
+            "payerPays": 2,
+            "recipientReceives": 1
+          }
+        },
+        {
+          "amount": 99,
+          "expected": {
+            "fee": 1,
+            "payerPays": 100,
+            "recipientReceives": 99
+          }
+        },
+        {
+          "amount": 100,
+          "expected": {
+            "fee": 1,
+            "payerPays": 101,
+            "recipientReceives": 100
+          }
+        },
+        {
+          "amount": 999,
+          "expected": {
+            "fee": 1,
+            "payerPays": 1000,
+            "recipientReceives": 999
+          }
+        },
+        {
+          "amount": 1000,
+          "expected": {
+            "fee": 1,
+            "payerPays": 1001,
+            "recipientReceives": 1000
+          }
+        },
+        {
+          "amount": 1001,
+          "expected": {
+            "fee": 1,
+            "payerPays": 1002,
+            "recipientReceives": 1001
+          }
+        },
+        {
+          "amount": 9999,
+          "expected": {
+            "fee": 1,
+            "payerPays": 10000,
+            "recipientReceives": 9999
+          }
+        },
+        {
+          "amount": 10000,
+          "expected": {
+            "fee": 1,
+            "payerPays": 10001,
+            "recipientReceives": 10000
+          }
+        },
+        {
+          "amount": 55555,
+          "expected": {
+            "fee": 6,
+            "payerPays": 55561,
+            "recipientReceives": 55555
+          }
+        },
+        {
+          "amount": 1000000,
+          "expected": {
+            "fee": 100,
+            "payerPays": 1000100,
+            "recipientReceives": 1000000
+          }
+        }
+      ]
+    },
+    {
+      "key": "half-even",
+      "rule": {
+        "mode": "ON_TOP",
+        "flat": 0,
+        "basisPoints": 125,
+        "minimum": 0,
+        "maximum": null,
+        "rounding": "HALF_EVEN",
+        "tiers": []
+      },
+      "quotes": [
+        {
+          "amount": 0,
+          "expected": {
+            "fee": 0,
+            "payerPays": 0,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 1,
+          "expected": {
+            "fee": 0,
+            "payerPays": 1,
+            "recipientReceives": 1
+          }
+        },
+        {
+          "amount": 99,
+          "expected": {
+            "fee": 1,
+            "payerPays": 100,
+            "recipientReceives": 99
+          }
+        },
+        {
+          "amount": 100,
+          "expected": {
+            "fee": 1,
+            "payerPays": 101,
+            "recipientReceives": 100
+          }
+        },
+        {
+          "amount": 999,
+          "expected": {
+            "fee": 12,
+            "payerPays": 1011,
+            "recipientReceives": 999
+          }
+        },
+        {
+          "amount": 1000,
+          "expected": {
+            "fee": 12,
+            "payerPays": 1012,
+            "recipientReceives": 1000
+          }
+        },
+        {
+          "amount": 1001,
+          "expected": {
+            "fee": 13,
+            "payerPays": 1014,
+            "recipientReceives": 1001
+          }
+        },
+        {
+          "amount": 9999,
+          "expected": {
+            "fee": 125,
+            "payerPays": 10124,
+            "recipientReceives": 9999
+          }
+        },
+        {
+          "amount": 10000,
+          "expected": {
+            "fee": 125,
+            "payerPays": 10125,
+            "recipientReceives": 10000
+          }
+        },
+        {
+          "amount": 55555,
+          "expected": {
+            "fee": 694,
+            "payerPays": 56249,
+            "recipientReceives": 55555
+          }
+        },
+        {
+          "amount": 1000000,
+          "expected": {
+            "fee": 12500,
+            "payerPays": 1012500,
+            "recipientReceives": 1000000
+          }
+        }
+      ]
+    },
+    {
+      "key": "tiered",
+      "rule": {
+        "mode": "ON_TOP",
+        "flat": 0,
+        "basisPoints": 0,
+        "minimum": 0,
+        "maximum": null,
+        "rounding": "DOWN",
+        "tiers": [
+          {
+            "threshold": 0,
+            "basisPoints": 0
+          },
+          {
+            "threshold": 1000,
+            "basisPoints": 100
+          },
+          {
+            "threshold": 10000,
+            "basisPoints": 250
+          }
+        ]
+      },
+      "quotes": [
+        {
+          "amount": 0,
+          "expected": {
+            "fee": 0,
+            "payerPays": 0,
+            "recipientReceives": 0
+          }
+        },
+        {
+          "amount": 1,
+          "expected": {
+            "fee": 0,
+            "payerPays": 1,
+            "recipientReceives": 1
+          }
+        },
+        {
+          "amount": 99,
+          "expected": {
+            "fee": 0,
+            "payerPays": 99,
+            "recipientReceives": 99
+          }
+        },
+        {
+          "amount": 100,
+          "expected": {
+            "fee": 0,
+            "payerPays": 100,
+            "recipientReceives": 100
+          }
+        },
+        {
+          "amount": 999,
+          "expected": {
+            "fee": 0,
+            "payerPays": 999,
+            "recipientReceives": 999
+          }
+        },
+        {
+          "amount": 1000,
+          "expected": {
+            "fee": 0,
+            "payerPays": 1000,
+            "recipientReceives": 1000
+          }
+        },
+        {
+          "amount": 1001,
+          "expected": {
+            "fee": 0,
+            "payerPays": 1001,
+            "recipientReceives": 1001
+          }
+        },
+        {
+          "amount": 9999,
+          "expected": {
+            "fee": 89,
+            "payerPays": 10088,
+            "recipientReceives": 9999
+          }
+        },
+        {
+          "amount": 10000,
+          "expected": {
+            "fee": 90,
+            "payerPays": 10090,
+            "recipientReceives": 10000
+          }
+        },
+        {
+          "amount": 55555,
+          "expected": {
+            "fee": 1228,
+            "payerPays": 56783,
+            "recipientReceives": 55555
+          }
+        },
+        {
+          "amount": 1000000,
+          "expected": {
+            "fee": 24840,
+            "payerPays": 1024840,
+            "recipientReceives": 1000000
+          }
+        }
+      ]
+    }
+  ],
+  "splits": [
+    {
+      "fee": 10,
+      "weights": [
+        1,
+        1,
+        1
+      ],
+      "expected": [
+        4,
+        3,
+        3
+      ]
+    },
+    {
+      "fee": 100,
+      "weights": [
+        70,
+        20,
+        10
+      ],
+      "expected": [
+        70,
+        20,
+        10
+      ]
+    },
+    {
+      "fee": 1,
+      "weights": [
+        1,
+        1
+      ],
+      "expected": [
+        1,
+        0
+      ]
+    },
+    {
+      "fee": 9999,
+      "weights": [
+        1,
+        0,
+        3,
+        5
+      ],
+      "expected": [
+        1111,
+        0,
+        3333,
+        5555
+      ]
+    },
+    {
+      "fee": 0,
+      "weights": [
+        5
+      ],
+      "expected": [
+        0
+      ]
+    }
+  ]
+}

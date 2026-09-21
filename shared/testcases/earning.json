@@ -1,0 +1,312 @@
+{
+  "formatVersion": 1,
+  "description": "Earning sequences with cooldowns and period ceilings. Amounts are fixed, never random: EconomyWorld contains no randomness at all, for the legal reasons set out in the README.",
+  "baseTimestampMs": 1700000000000,
+  "scenarios": [
+    {
+      "id": "cooldown-blocks-then-releases",
+      "description": "A payout, a blocked repeat inside the cooldown, then a payout once it expires.",
+      "ruleKey": "message",
+      "initialBalance": 0,
+      "steps": [
+        {
+          "offsetMs": 0,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 0,
+            "newBalance": 10,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 90,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 30000,
+          "expected": {
+            "outcome": "COOLDOWN",
+            "amount": 0,
+            "grossAmount": 10,
+            "previousBalance": 10,
+            "newBalance": 10,
+            "cooldownRemainingMs": 30000,
+            "periodRemaining": 90,
+            "booked": false
+          }
+        },
+        {
+          "offsetMs": 60000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 10,
+            "newBalance": 20,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 80,
+            "booked": true
+          }
+        }
+      ],
+      "finalBalance": 20
+    },
+    {
+      "id": "period-cap-trims-then-blocks",
+      "description": "The daily ceiling trims the last payout and refuses the next.",
+      "ruleKey": "message",
+      "initialBalance": 0,
+      "steps": [
+        {
+          "offsetMs": 0,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 0,
+            "newBalance": 10,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 90,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 60000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 10,
+            "newBalance": 20,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 80,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 120000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 20,
+            "newBalance": 30,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 70,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 180000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 30,
+            "newBalance": 40,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 60,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 240000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 40,
+            "newBalance": 50,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 50,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 300000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 50,
+            "newBalance": 60,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 40,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 360000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 60,
+            "newBalance": 70,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 30,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 420000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 70,
+            "newBalance": 80,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 20,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 480000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 80,
+            "newBalance": 90,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 10,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 540000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 10,
+            "grossAmount": 10,
+            "previousBalance": 90,
+            "newBalance": 100,
+            "cooldownRemainingMs": 60000,
+            "periodRemaining": 0,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 600000,
+          "expected": {
+            "outcome": "PERIOD_CAP",
+            "amount": 0,
+            "grossAmount": 10,
+            "previousBalance": 100,
+            "newBalance": 100,
+            "cooldownRemainingMs": 0,
+            "periodRemaining": 0,
+            "booked": false
+          }
+        },
+        {
+          "offsetMs": 660000,
+          "expected": {
+            "outcome": "PERIOD_CAP",
+            "amount": 0,
+            "grossAmount": 10,
+            "previousBalance": 100,
+            "newBalance": 100,
+            "cooldownRemainingMs": 0,
+            "periodRemaining": 0,
+            "booked": false
+          }
+        }
+      ],
+      "finalBalance": 100
+    },
+    {
+      "id": "period-resets-the-next-day",
+      "description": "A new period starts once the old one is over.",
+      "ruleKey": "daily",
+      "initialBalance": 0,
+      "steps": [
+        {
+          "offsetMs": 0,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 250,
+            "grossAmount": 250,
+            "previousBalance": 0,
+            "newBalance": 250,
+            "cooldownRemainingMs": 86400000,
+            "periodRemaining": null,
+            "booked": true
+          }
+        },
+        {
+          "offsetMs": 3600000,
+          "expected": {
+            "outcome": "COOLDOWN",
+            "amount": 0,
+            "grossAmount": 250,
+            "previousBalance": 250,
+            "newBalance": 250,
+            "cooldownRemainingMs": 82800000,
+            "periodRemaining": null,
+            "booked": false
+          }
+        },
+        {
+          "offsetMs": 86400000,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 250,
+            "grossAmount": 250,
+            "previousBalance": 250,
+            "newBalance": 500,
+            "cooldownRemainingMs": 86400000,
+            "periodRemaining": null,
+            "booked": true
+          }
+        }
+      ],
+      "finalBalance": 500
+    },
+    {
+      "id": "unknown-rule-pays-nothing",
+      "description": "An unknown key is a result, not an exception.",
+      "ruleKey": "nonsense",
+      "initialBalance": 100,
+      "steps": [
+        {
+          "offsetMs": 0,
+          "expected": {
+            "outcome": "UNKNOWN_RULE",
+            "amount": 0,
+            "grossAmount": 0,
+            "previousBalance": 100,
+            "newBalance": 100,
+            "cooldownRemainingMs": 0,
+            "periodRemaining": null,
+            "booked": false
+          }
+        }
+      ],
+      "finalBalance": 100
+    },
+    {
+      "id": "headroom-trims-the-payout",
+      "description": "A nearly full account receives only what still fits.",
+      "ruleKey": "daily",
+      "initialBalance": 999900,
+      "steps": [
+        {
+          "offsetMs": 0,
+          "expected": {
+            "outcome": "EARNED",
+            "amount": 100,
+            "grossAmount": 250,
+            "previousBalance": 999900,
+            "newBalance": 1000000,
+            "cooldownRemainingMs": 86400000,
+            "periodRemaining": null,
+            "booked": true
+          }
+        }
+      ],
+      "finalBalance": 1000000
+    }
+  ]
+}

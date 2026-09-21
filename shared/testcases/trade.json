@@ -1,0 +1,148 @@
+{
+  "formatVersion": 1,
+  "description": "A settled trade moves both sides at once, with the currency netted into a single posting. An abandoned trade leaves no damage behind.",
+  "baseTimestampMs": 1700000000000,
+  "cases": [
+    {
+      "id": "currency-for-items",
+      "left": {
+        "owner": "ana",
+        "amount": 100,
+        "items": []
+      },
+      "right": {
+        "owner": "ben",
+        "amount": 0,
+        "items": [
+          {
+            "itemId": "potion",
+            "quantity": 3
+          }
+        ]
+      },
+      "leftBalance": 500,
+      "rightBalance": 20,
+      "leftSlots": [],
+      "rightSlots": [
+        {
+          "itemId": "potion",
+          "quantity": 5
+        }
+      ],
+      "expiresAt": 1700000300000,
+      "expected": {
+        "state": "COMPLETED",
+        "settledAt": 1700000001000,
+        "booked": true,
+        "amount": 100,
+        "balances": {
+          "guild-1/ana/COIN": 400,
+          "guild-1/ben/COIN": 120
+        },
+        "leftSlots": [
+          {
+            "itemId": "potion",
+            "quantity": 3
+          }
+        ],
+        "rightSlots": [
+          {
+            "itemId": "potion",
+            "quantity": 2
+          }
+        ]
+      }
+    },
+    {
+      "id": "netted-currency",
+      "left": {
+        "owner": "ana",
+        "amount": 100,
+        "items": []
+      },
+      "right": {
+        "owner": "ben",
+        "amount": 30,
+        "items": []
+      },
+      "leftBalance": 500,
+      "rightBalance": 500,
+      "leftSlots": [],
+      "rightSlots": [],
+      "expiresAt": 1700000300000,
+      "expected": {
+        "state": "COMPLETED",
+        "settledAt": 1700000001000,
+        "booked": true,
+        "amount": 70,
+        "balances": {
+          "guild-1/ana/COIN": 430,
+          "guild-1/ben/COIN": 570
+        },
+        "leftSlots": [],
+        "rightSlots": []
+      }
+    },
+    {
+      "id": "items-only",
+      "left": {
+        "owner": "ana",
+        "amount": 0,
+        "items": [
+          {
+            "itemId": "sword",
+            "quantity": 1
+          }
+        ]
+      },
+      "right": {
+        "owner": "ben",
+        "amount": 0,
+        "items": [
+          {
+            "itemId": "potion",
+            "quantity": 2
+          }
+        ]
+      },
+      "leftBalance": 100,
+      "rightBalance": 100,
+      "leftSlots": [
+        {
+          "itemId": "sword",
+          "quantity": 1
+        }
+      ],
+      "rightSlots": [
+        {
+          "itemId": "potion",
+          "quantity": 4
+        }
+      ],
+      "expiresAt": 1700000300000,
+      "expected": {
+        "state": "COMPLETED",
+        "settledAt": 1700000001000,
+        "booked": false,
+        "amount": 0,
+        "balances": null,
+        "leftSlots": [
+          {
+            "itemId": "potion",
+            "quantity": 2
+          }
+        ],
+        "rightSlots": [
+          {
+            "itemId": "potion",
+            "quantity": 2
+          },
+          {
+            "itemId": "sword",
+            "quantity": 1
+          }
+        ]
+      }
+    }
+  ]
+}

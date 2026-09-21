@@ -1,0 +1,130 @@
+{
+  "formatVersion": 1,
+  "description": "Integer arithmetic on minor units. Amounts are never floats, so the two editions cannot drift through rounding.",
+  "splits": [
+    {
+      "amount": 0,
+      "minorUnits": 0,
+      "expected": {
+        "negative": false,
+        "whole": 0,
+        "fraction": 0
+      }
+    },
+    {
+      "amount": 1234,
+      "minorUnits": 0,
+      "expected": {
+        "negative": false,
+        "whole": 1234,
+        "fraction": 0
+      }
+    },
+    {
+      "amount": 1234,
+      "minorUnits": 2,
+      "expected": {
+        "negative": false,
+        "whole": 12,
+        "fraction": 34
+      }
+    },
+    {
+      "amount": -1234,
+      "minorUnits": 2,
+      "expected": {
+        "negative": true,
+        "whole": 12,
+        "fraction": 34
+      }
+    },
+    {
+      "amount": 5,
+      "minorUnits": 2,
+      "expected": {
+        "negative": false,
+        "whole": 0,
+        "fraction": 5
+      }
+    },
+    {
+      "amount": -5,
+      "minorUnits": 2,
+      "expected": {
+        "negative": true,
+        "whole": 0,
+        "fraction": 5
+      }
+    },
+    {
+      "amount": 100000,
+      "minorUnits": 3,
+      "expected": {
+        "negative": false,
+        "whole": 100,
+        "fraction": 0
+      }
+    }
+  ],
+  "permilleChains": [
+    {
+      "amount": 100,
+      "permilles": [],
+      "expected": 100
+    },
+    {
+      "amount": 100,
+      "permilles": [
+        1500
+      ],
+      "expected": 150
+    },
+    {
+      "amount": 100,
+      "permilles": [
+        500
+      ],
+      "expected": 50
+    },
+    {
+      "amount": 7,
+      "permilles": [
+        1500,
+        1100
+      ],
+      "expected": 11
+    },
+    {
+      "amount": 7,
+      "permilles": [
+        1100,
+        1500
+      ],
+      "expected": 10
+    },
+    {
+      "amount": 999,
+      "permilles": [
+        1001,
+        1001,
+        1001
+      ],
+      "expected": 999
+    },
+    {
+      "amount": 1,
+      "permilles": [
+        1999
+      ],
+      "expected": 1
+    },
+    {
+      "amount": 3,
+      "permilles": [
+        333,
+        3000
+      ],
+      "expected": 0
+    }
+  ]
+}

@@ -1,0 +1,2170 @@
+{
+  "formatVersion": 1,
+  "description": "Accrual and amortisation. Schedules are built by iterating whole units rather than from a closed form, so both editions charge the same instalment to the unit.",
+  "accruals": [
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 1,
+      "basis": "COMPOUND",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 500,
+        "balance": 10500
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 1,
+      "basis": "COMPOUND",
+      "rounding": "UP",
+      "expected": {
+        "interest": 500,
+        "balance": 10500
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 1,
+      "basis": "COMPOUND",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 500,
+        "balance": 10500
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 1,
+      "basis": "COMPOUND",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 500,
+        "balance": 10500
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 1,
+      "basis": "SIMPLE",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 500,
+        "balance": 10500
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 1,
+      "basis": "SIMPLE",
+      "rounding": "UP",
+      "expected": {
+        "interest": 500,
+        "balance": 10500
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 1,
+      "basis": "SIMPLE",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 500,
+        "balance": 10500
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 1,
+      "basis": "SIMPLE",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 500,
+        "balance": 10500
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 2,
+      "basis": "COMPOUND",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 1025,
+        "balance": 11025
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 2,
+      "basis": "COMPOUND",
+      "rounding": "UP",
+      "expected": {
+        "interest": 1025,
+        "balance": 11025
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 2,
+      "basis": "COMPOUND",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 1025,
+        "balance": 11025
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 2,
+      "basis": "COMPOUND",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 1025,
+        "balance": 11025
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 2,
+      "basis": "SIMPLE",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 1000,
+        "balance": 11000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 2,
+      "basis": "SIMPLE",
+      "rounding": "UP",
+      "expected": {
+        "interest": 1000,
+        "balance": 11000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 2,
+      "basis": "SIMPLE",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 1000,
+        "balance": 11000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 2,
+      "basis": "SIMPLE",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 1000,
+        "balance": 11000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 12,
+      "basis": "COMPOUND",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 7952,
+        "balance": 17952
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 12,
+      "basis": "COMPOUND",
+      "rounding": "UP",
+      "expected": {
+        "interest": 7964,
+        "balance": 17964
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 12,
+      "basis": "COMPOUND",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 7960,
+        "balance": 17960
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 12,
+      "basis": "COMPOUND",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 7959,
+        "balance": 17959
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 12,
+      "basis": "SIMPLE",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 6000,
+        "balance": 16000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 12,
+      "basis": "SIMPLE",
+      "rounding": "UP",
+      "expected": {
+        "interest": 6000,
+        "balance": 16000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 12,
+      "basis": "SIMPLE",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 6000,
+        "balance": 16000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 500,
+      "periods": 12,
+      "basis": "SIMPLE",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 6000,
+        "balance": 16000
+      }
+    },
+    {
+      "principal": 100,
+      "rateBasisPoints": 1,
+      "periods": 1,
+      "basis": "COMPOUND",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 0,
+        "balance": 100
+      }
+    },
+    {
+      "principal": 100,
+      "rateBasisPoints": 1,
+      "periods": 1,
+      "basis": "COMPOUND",
+      "rounding": "UP",
+      "expected": {
+        "interest": 1,
+        "balance": 101
+      }
+    },
+    {
+      "principal": 100,
+      "rateBasisPoints": 1,
+      "periods": 1,
+      "basis": "COMPOUND",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 0,
+        "balance": 100
+      }
+    },
+    {
+      "principal": 100,
+      "rateBasisPoints": 1,
+      "periods": 1,
+      "basis": "COMPOUND",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 0,
+        "balance": 100
+      }
+    },
+    {
+      "principal": 100,
+      "rateBasisPoints": 1,
+      "periods": 1,
+      "basis": "SIMPLE",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 0,
+        "balance": 100
+      }
+    },
+    {
+      "principal": 100,
+      "rateBasisPoints": 1,
+      "periods": 1,
+      "basis": "SIMPLE",
+      "rounding": "UP",
+      "expected": {
+        "interest": 1,
+        "balance": 101
+      }
+    },
+    {
+      "principal": 100,
+      "rateBasisPoints": 1,
+      "periods": 1,
+      "basis": "SIMPLE",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 0,
+        "balance": 100
+      }
+    },
+    {
+      "principal": 100,
+      "rateBasisPoints": 1,
+      "periods": 1,
+      "basis": "SIMPLE",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 0,
+        "balance": 100
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 333,
+      "periods": 10,
+      "basis": "COMPOUND",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 382,
+        "balance": 1382
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 333,
+      "periods": 10,
+      "basis": "COMPOUND",
+      "rounding": "UP",
+      "expected": {
+        "interest": 394,
+        "balance": 1394
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 333,
+      "periods": 10,
+      "basis": "COMPOUND",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 388,
+        "balance": 1388
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 333,
+      "periods": 10,
+      "basis": "COMPOUND",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 388,
+        "balance": 1388
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 333,
+      "periods": 10,
+      "basis": "SIMPLE",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 330,
+        "balance": 1330
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 333,
+      "periods": 10,
+      "basis": "SIMPLE",
+      "rounding": "UP",
+      "expected": {
+        "interest": 340,
+        "balance": 1340
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 333,
+      "periods": 10,
+      "basis": "SIMPLE",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 330,
+        "balance": 1330
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 333,
+      "periods": 10,
+      "basis": "SIMPLE",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 330,
+        "balance": 1330
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 10000,
+      "periods": 3,
+      "basis": "COMPOUND",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 49,
+        "balance": 56
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 10000,
+      "periods": 3,
+      "basis": "COMPOUND",
+      "rounding": "UP",
+      "expected": {
+        "interest": 49,
+        "balance": 56
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 10000,
+      "periods": 3,
+      "basis": "COMPOUND",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 49,
+        "balance": 56
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 10000,
+      "periods": 3,
+      "basis": "COMPOUND",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 49,
+        "balance": 56
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 10000,
+      "periods": 3,
+      "basis": "SIMPLE",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 21,
+        "balance": 28
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 10000,
+      "periods": 3,
+      "basis": "SIMPLE",
+      "rounding": "UP",
+      "expected": {
+        "interest": 21,
+        "balance": 28
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 10000,
+      "periods": 3,
+      "basis": "SIMPLE",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 21,
+        "balance": 28
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 10000,
+      "periods": 3,
+      "basis": "SIMPLE",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 21,
+        "balance": 28
+      }
+    },
+    {
+      "principal": 0,
+      "rateBasisPoints": 500,
+      "periods": 5,
+      "basis": "COMPOUND",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 0,
+        "balance": 0
+      }
+    },
+    {
+      "principal": 0,
+      "rateBasisPoints": 500,
+      "periods": 5,
+      "basis": "COMPOUND",
+      "rounding": "UP",
+      "expected": {
+        "interest": 0,
+        "balance": 0
+      }
+    },
+    {
+      "principal": 0,
+      "rateBasisPoints": 500,
+      "periods": 5,
+      "basis": "COMPOUND",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 0,
+        "balance": 0
+      }
+    },
+    {
+      "principal": 0,
+      "rateBasisPoints": 500,
+      "periods": 5,
+      "basis": "COMPOUND",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 0,
+        "balance": 0
+      }
+    },
+    {
+      "principal": 0,
+      "rateBasisPoints": 500,
+      "periods": 5,
+      "basis": "SIMPLE",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 0,
+        "balance": 0
+      }
+    },
+    {
+      "principal": 0,
+      "rateBasisPoints": 500,
+      "periods": 5,
+      "basis": "SIMPLE",
+      "rounding": "UP",
+      "expected": {
+        "interest": 0,
+        "balance": 0
+      }
+    },
+    {
+      "principal": 0,
+      "rateBasisPoints": 500,
+      "periods": 5,
+      "basis": "SIMPLE",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 0,
+        "balance": 0
+      }
+    },
+    {
+      "principal": 0,
+      "rateBasisPoints": 500,
+      "periods": 5,
+      "basis": "SIMPLE",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 0,
+        "balance": 0
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "basis": "COMPOUND",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 0,
+        "balance": 10000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "basis": "COMPOUND",
+      "rounding": "UP",
+      "expected": {
+        "interest": 0,
+        "balance": 10000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "basis": "COMPOUND",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 0,
+        "balance": 10000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "basis": "COMPOUND",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 0,
+        "balance": 10000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "basis": "SIMPLE",
+      "rounding": "DOWN",
+      "expected": {
+        "interest": 0,
+        "balance": 10000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "basis": "SIMPLE",
+      "rounding": "UP",
+      "expected": {
+        "interest": 0,
+        "balance": 10000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "basis": "SIMPLE",
+      "rounding": "HALF_UP",
+      "expected": {
+        "interest": 0,
+        "balance": 10000
+      }
+    },
+    {
+      "principal": 10000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "basis": "SIMPLE",
+      "rounding": "HALF_EVEN",
+      "expected": {
+        "interest": 0,
+        "balance": 10000
+      }
+    }
+  ],
+  "schedules": [
+    {
+      "principal": 120000,
+      "rateBasisPoints": 100,
+      "periods": 12,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "levelPayment": 10662,
+        "totalInterest": 7936,
+        "totalPaid": 127936,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 9462,
+            "payment": 10662,
+            "closingBalance": 110538
+          },
+          {
+            "number": 2,
+            "openingBalance": 110538,
+            "interest": 1105,
+            "principal": 9557,
+            "payment": 10662,
+            "closingBalance": 100981
+          },
+          {
+            "number": 3,
+            "openingBalance": 100981,
+            "interest": 1009,
+            "principal": 9653,
+            "payment": 10662,
+            "closingBalance": 91328
+          },
+          {
+            "number": 4,
+            "openingBalance": 91328,
+            "interest": 913,
+            "principal": 9749,
+            "payment": 10662,
+            "closingBalance": 81579
+          },
+          {
+            "number": 5,
+            "openingBalance": 81579,
+            "interest": 815,
+            "principal": 9847,
+            "payment": 10662,
+            "closingBalance": 71732
+          },
+          {
+            "number": 6,
+            "openingBalance": 71732,
+            "interest": 717,
+            "principal": 9945,
+            "payment": 10662,
+            "closingBalance": 61787
+          },
+          {
+            "number": 7,
+            "openingBalance": 61787,
+            "interest": 617,
+            "principal": 10045,
+            "payment": 10662,
+            "closingBalance": 51742
+          },
+          {
+            "number": 8,
+            "openingBalance": 51742,
+            "interest": 517,
+            "principal": 10145,
+            "payment": 10662,
+            "closingBalance": 41597
+          },
+          {
+            "number": 9,
+            "openingBalance": 41597,
+            "interest": 415,
+            "principal": 10247,
+            "payment": 10662,
+            "closingBalance": 31350
+          },
+          {
+            "number": 10,
+            "openingBalance": 31350,
+            "interest": 313,
+            "principal": 10349,
+            "payment": 10662,
+            "closingBalance": 21001
+          },
+          {
+            "number": 11,
+            "openingBalance": 21001,
+            "interest": 210,
+            "principal": 10452,
+            "payment": 10662,
+            "closingBalance": 10549
+          },
+          {
+            "number": 12,
+            "openingBalance": 10549,
+            "interest": 105,
+            "principal": 10549,
+            "payment": 10654,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 120000,
+      "rateBasisPoints": 100,
+      "periods": 12,
+      "method": "EQUAL_PRINCIPAL",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 7800,
+        "totalPaid": 127800,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 10000,
+            "payment": 11200,
+            "closingBalance": 110000
+          },
+          {
+            "number": 2,
+            "openingBalance": 110000,
+            "interest": 1100,
+            "principal": 10000,
+            "payment": 11100,
+            "closingBalance": 100000
+          },
+          {
+            "number": 3,
+            "openingBalance": 100000,
+            "interest": 1000,
+            "principal": 10000,
+            "payment": 11000,
+            "closingBalance": 90000
+          },
+          {
+            "number": 4,
+            "openingBalance": 90000,
+            "interest": 900,
+            "principal": 10000,
+            "payment": 10900,
+            "closingBalance": 80000
+          },
+          {
+            "number": 5,
+            "openingBalance": 80000,
+            "interest": 800,
+            "principal": 10000,
+            "payment": 10800,
+            "closingBalance": 70000
+          },
+          {
+            "number": 6,
+            "openingBalance": 70000,
+            "interest": 700,
+            "principal": 10000,
+            "payment": 10700,
+            "closingBalance": 60000
+          },
+          {
+            "number": 7,
+            "openingBalance": 60000,
+            "interest": 600,
+            "principal": 10000,
+            "payment": 10600,
+            "closingBalance": 50000
+          },
+          {
+            "number": 8,
+            "openingBalance": 50000,
+            "interest": 500,
+            "principal": 10000,
+            "payment": 10500,
+            "closingBalance": 40000
+          },
+          {
+            "number": 9,
+            "openingBalance": 40000,
+            "interest": 400,
+            "principal": 10000,
+            "payment": 10400,
+            "closingBalance": 30000
+          },
+          {
+            "number": 10,
+            "openingBalance": 30000,
+            "interest": 300,
+            "principal": 10000,
+            "payment": 10300,
+            "closingBalance": 20000
+          },
+          {
+            "number": 11,
+            "openingBalance": 20000,
+            "interest": 200,
+            "principal": 10000,
+            "payment": 10200,
+            "closingBalance": 10000
+          },
+          {
+            "number": 12,
+            "openingBalance": 10000,
+            "interest": 100,
+            "principal": 10000,
+            "payment": 10100,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 120000,
+      "rateBasisPoints": 100,
+      "periods": 12,
+      "method": "INTEREST_ONLY",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 14400,
+        "totalPaid": 134400,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 2,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 3,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 4,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 5,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 6,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 7,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 8,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 9,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 10,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 11,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 0,
+            "payment": 1200,
+            "closingBalance": 120000
+          },
+          {
+            "number": 12,
+            "openingBalance": 120000,
+            "interest": 1200,
+            "principal": 120000,
+            "payment": 121200,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 0,
+      "periods": 4,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "levelPayment": 250,
+        "totalInterest": 0,
+        "totalPaid": 1000,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 1000,
+            "interest": 0,
+            "principal": 250,
+            "payment": 250,
+            "closingBalance": 750
+          },
+          {
+            "number": 2,
+            "openingBalance": 750,
+            "interest": 0,
+            "principal": 250,
+            "payment": 250,
+            "closingBalance": 500
+          },
+          {
+            "number": 3,
+            "openingBalance": 500,
+            "interest": 0,
+            "principal": 250,
+            "payment": 250,
+            "closingBalance": 250
+          },
+          {
+            "number": 4,
+            "openingBalance": 250,
+            "interest": 0,
+            "principal": 250,
+            "payment": 250,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 0,
+      "periods": 4,
+      "method": "EQUAL_PRINCIPAL",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 0,
+        "totalPaid": 1000,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 1000,
+            "interest": 0,
+            "principal": 250,
+            "payment": 250,
+            "closingBalance": 750
+          },
+          {
+            "number": 2,
+            "openingBalance": 750,
+            "interest": 0,
+            "principal": 250,
+            "payment": 250,
+            "closingBalance": 500
+          },
+          {
+            "number": 3,
+            "openingBalance": 500,
+            "interest": 0,
+            "principal": 250,
+            "payment": 250,
+            "closingBalance": 250
+          },
+          {
+            "number": 4,
+            "openingBalance": 250,
+            "interest": 0,
+            "principal": 250,
+            "payment": 250,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 1000,
+      "rateBasisPoints": 0,
+      "periods": 4,
+      "method": "INTEREST_ONLY",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 0,
+        "totalPaid": 1000,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 1000,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 1000
+          },
+          {
+            "number": 2,
+            "openingBalance": 1000,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 1000
+          },
+          {
+            "number": 3,
+            "openingBalance": 1000,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 1000
+          },
+          {
+            "number": 4,
+            "openingBalance": 1000,
+            "interest": 0,
+            "principal": 1000,
+            "payment": 1000,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 1,
+      "rateBasisPoints": 1000,
+      "periods": 3,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "levelPayment": 1,
+        "totalInterest": 0,
+        "totalPaid": 1,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 1,
+            "interest": 0,
+            "principal": 1,
+            "payment": 1,
+            "closingBalance": 0
+          },
+          {
+            "number": 2,
+            "openingBalance": 0,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 0
+          },
+          {
+            "number": 3,
+            "openingBalance": 0,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 1,
+      "rateBasisPoints": 1000,
+      "periods": 3,
+      "method": "EQUAL_PRINCIPAL",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 0,
+        "totalPaid": 1,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 1,
+            "interest": 0,
+            "principal": 1,
+            "payment": 1,
+            "closingBalance": 0
+          },
+          {
+            "number": 2,
+            "openingBalance": 0,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 0
+          },
+          {
+            "number": 3,
+            "openingBalance": 0,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 1,
+      "rateBasisPoints": 1000,
+      "periods": 3,
+      "method": "INTEREST_ONLY",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 0,
+        "totalPaid": 1,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 1,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 1
+          },
+          {
+            "number": 2,
+            "openingBalance": 1,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 1
+          },
+          {
+            "number": 3,
+            "openingBalance": 1,
+            "interest": 0,
+            "principal": 1,
+            "payment": 1,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 987654321,
+      "rateBasisPoints": 250,
+      "periods": 24,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "levelPayment": 55222539,
+        "totalInterest": 337686589,
+        "totalPaid": 1325340910,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 30531181,
+            "payment": 55222539,
+            "closingBalance": 957123140
+          },
+          {
+            "number": 2,
+            "openingBalance": 957123140,
+            "interest": 23928078,
+            "principal": 31294461,
+            "payment": 55222539,
+            "closingBalance": 925828679
+          },
+          {
+            "number": 3,
+            "openingBalance": 925828679,
+            "interest": 23145716,
+            "principal": 32076823,
+            "payment": 55222539,
+            "closingBalance": 893751856
+          },
+          {
+            "number": 4,
+            "openingBalance": 893751856,
+            "interest": 22343796,
+            "principal": 32878743,
+            "payment": 55222539,
+            "closingBalance": 860873113
+          },
+          {
+            "number": 5,
+            "openingBalance": 860873113,
+            "interest": 21521827,
+            "principal": 33700712,
+            "payment": 55222539,
+            "closingBalance": 827172401
+          },
+          {
+            "number": 6,
+            "openingBalance": 827172401,
+            "interest": 20679310,
+            "principal": 34543229,
+            "payment": 55222539,
+            "closingBalance": 792629172
+          },
+          {
+            "number": 7,
+            "openingBalance": 792629172,
+            "interest": 19815729,
+            "principal": 35406810,
+            "payment": 55222539,
+            "closingBalance": 757222362
+          },
+          {
+            "number": 8,
+            "openingBalance": 757222362,
+            "interest": 18930559,
+            "principal": 36291980,
+            "payment": 55222539,
+            "closingBalance": 720930382
+          },
+          {
+            "number": 9,
+            "openingBalance": 720930382,
+            "interest": 18023259,
+            "principal": 37199280,
+            "payment": 55222539,
+            "closingBalance": 683731102
+          },
+          {
+            "number": 10,
+            "openingBalance": 683731102,
+            "interest": 17093277,
+            "principal": 38129262,
+            "payment": 55222539,
+            "closingBalance": 645601840
+          },
+          {
+            "number": 11,
+            "openingBalance": 645601840,
+            "interest": 16140046,
+            "principal": 39082493,
+            "payment": 55222539,
+            "closingBalance": 606519347
+          },
+          {
+            "number": 12,
+            "openingBalance": 606519347,
+            "interest": 15162983,
+            "principal": 40059556,
+            "payment": 55222539,
+            "closingBalance": 566459791
+          },
+          {
+            "number": 13,
+            "openingBalance": 566459791,
+            "interest": 14161494,
+            "principal": 41061045,
+            "payment": 55222539,
+            "closingBalance": 525398746
+          },
+          {
+            "number": 14,
+            "openingBalance": 525398746,
+            "interest": 13134968,
+            "principal": 42087571,
+            "payment": 55222539,
+            "closingBalance": 483311175
+          },
+          {
+            "number": 15,
+            "openingBalance": 483311175,
+            "interest": 12082779,
+            "principal": 43139760,
+            "payment": 55222539,
+            "closingBalance": 440171415
+          },
+          {
+            "number": 16,
+            "openingBalance": 440171415,
+            "interest": 11004285,
+            "principal": 44218254,
+            "payment": 55222539,
+            "closingBalance": 395953161
+          },
+          {
+            "number": 17,
+            "openingBalance": 395953161,
+            "interest": 9898829,
+            "principal": 45323710,
+            "payment": 55222539,
+            "closingBalance": 350629451
+          },
+          {
+            "number": 18,
+            "openingBalance": 350629451,
+            "interest": 8765736,
+            "principal": 46456803,
+            "payment": 55222539,
+            "closingBalance": 304172648
+          },
+          {
+            "number": 19,
+            "openingBalance": 304172648,
+            "interest": 7604316,
+            "principal": 47618223,
+            "payment": 55222539,
+            "closingBalance": 256554425
+          },
+          {
+            "number": 20,
+            "openingBalance": 256554425,
+            "interest": 6413860,
+            "principal": 48808679,
+            "payment": 55222539,
+            "closingBalance": 207745746
+          },
+          {
+            "number": 21,
+            "openingBalance": 207745746,
+            "interest": 5193643,
+            "principal": 50028896,
+            "payment": 55222539,
+            "closingBalance": 157716850
+          },
+          {
+            "number": 22,
+            "openingBalance": 157716850,
+            "interest": 3942921,
+            "principal": 51279618,
+            "payment": 55222539,
+            "closingBalance": 106437232
+          },
+          {
+            "number": 23,
+            "openingBalance": 106437232,
+            "interest": 2660930,
+            "principal": 52561609,
+            "payment": 55222539,
+            "closingBalance": 53875623
+          },
+          {
+            "number": 24,
+            "openingBalance": 53875623,
+            "interest": 1346890,
+            "principal": 53875623,
+            "payment": 55222513,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 987654321,
+      "rateBasisPoints": 250,
+      "periods": 24,
+      "method": "EQUAL_PRINCIPAL",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 308641963,
+        "totalPaid": 1296296284,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 41152264,
+            "payment": 65843622,
+            "closingBalance": 946502057
+          },
+          {
+            "number": 2,
+            "openingBalance": 946502057,
+            "interest": 23662551,
+            "principal": 41152264,
+            "payment": 64814815,
+            "closingBalance": 905349793
+          },
+          {
+            "number": 3,
+            "openingBalance": 905349793,
+            "interest": 22633744,
+            "principal": 41152264,
+            "payment": 63786008,
+            "closingBalance": 864197529
+          },
+          {
+            "number": 4,
+            "openingBalance": 864197529,
+            "interest": 21604938,
+            "principal": 41152264,
+            "payment": 62757202,
+            "closingBalance": 823045265
+          },
+          {
+            "number": 5,
+            "openingBalance": 823045265,
+            "interest": 20576131,
+            "principal": 41152264,
+            "payment": 61728395,
+            "closingBalance": 781893001
+          },
+          {
+            "number": 6,
+            "openingBalance": 781893001,
+            "interest": 19547325,
+            "principal": 41152264,
+            "payment": 60699589,
+            "closingBalance": 740740737
+          },
+          {
+            "number": 7,
+            "openingBalance": 740740737,
+            "interest": 18518518,
+            "principal": 41152264,
+            "payment": 59670782,
+            "closingBalance": 699588473
+          },
+          {
+            "number": 8,
+            "openingBalance": 699588473,
+            "interest": 17489711,
+            "principal": 41152264,
+            "payment": 58641975,
+            "closingBalance": 658436209
+          },
+          {
+            "number": 9,
+            "openingBalance": 658436209,
+            "interest": 16460905,
+            "principal": 41152264,
+            "payment": 57613169,
+            "closingBalance": 617283945
+          },
+          {
+            "number": 10,
+            "openingBalance": 617283945,
+            "interest": 15432098,
+            "principal": 41152263,
+            "payment": 56584361,
+            "closingBalance": 576131682
+          },
+          {
+            "number": 11,
+            "openingBalance": 576131682,
+            "interest": 14403292,
+            "principal": 41152263,
+            "payment": 55555555,
+            "closingBalance": 534979419
+          },
+          {
+            "number": 12,
+            "openingBalance": 534979419,
+            "interest": 13374485,
+            "principal": 41152263,
+            "payment": 54526748,
+            "closingBalance": 493827156
+          },
+          {
+            "number": 13,
+            "openingBalance": 493827156,
+            "interest": 12345678,
+            "principal": 41152263,
+            "payment": 53497941,
+            "closingBalance": 452674893
+          },
+          {
+            "number": 14,
+            "openingBalance": 452674893,
+            "interest": 11316872,
+            "principal": 41152263,
+            "payment": 52469135,
+            "closingBalance": 411522630
+          },
+          {
+            "number": 15,
+            "openingBalance": 411522630,
+            "interest": 10288065,
+            "principal": 41152263,
+            "payment": 51440328,
+            "closingBalance": 370370367
+          },
+          {
+            "number": 16,
+            "openingBalance": 370370367,
+            "interest": 9259259,
+            "principal": 41152263,
+            "payment": 50411522,
+            "closingBalance": 329218104
+          },
+          {
+            "number": 17,
+            "openingBalance": 329218104,
+            "interest": 8230452,
+            "principal": 41152263,
+            "payment": 49382715,
+            "closingBalance": 288065841
+          },
+          {
+            "number": 18,
+            "openingBalance": 288065841,
+            "interest": 7201646,
+            "principal": 41152263,
+            "payment": 48353909,
+            "closingBalance": 246913578
+          },
+          {
+            "number": 19,
+            "openingBalance": 246913578,
+            "interest": 6172839,
+            "principal": 41152263,
+            "payment": 47325102,
+            "closingBalance": 205761315
+          },
+          {
+            "number": 20,
+            "openingBalance": 205761315,
+            "interest": 5144032,
+            "principal": 41152263,
+            "payment": 46296295,
+            "closingBalance": 164609052
+          },
+          {
+            "number": 21,
+            "openingBalance": 164609052,
+            "interest": 4115226,
+            "principal": 41152263,
+            "payment": 45267489,
+            "closingBalance": 123456789
+          },
+          {
+            "number": 22,
+            "openingBalance": 123456789,
+            "interest": 3086419,
+            "principal": 41152263,
+            "payment": 44238682,
+            "closingBalance": 82304526
+          },
+          {
+            "number": 23,
+            "openingBalance": 82304526,
+            "interest": 2057613,
+            "principal": 41152263,
+            "payment": 43209876,
+            "closingBalance": 41152263
+          },
+          {
+            "number": 24,
+            "openingBalance": 41152263,
+            "interest": 1028806,
+            "principal": 41152263,
+            "payment": 42181069,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 987654321,
+      "rateBasisPoints": 250,
+      "periods": 24,
+      "method": "INTEREST_ONLY",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 592592592,
+        "totalPaid": 1580246913,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 2,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 3,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 4,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 5,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 6,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 7,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 8,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 9,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 10,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 11,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 12,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 13,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 14,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 15,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 16,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 17,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 18,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 19,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 20,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 21,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 22,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 23,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 0,
+            "payment": 24691358,
+            "closingBalance": 987654321
+          },
+          {
+            "number": 24,
+            "openingBalance": 987654321,
+            "interest": 24691358,
+            "principal": 987654321,
+            "payment": 1012345679,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 1,
+      "periods": 2,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "levelPayment": 4,
+        "totalInterest": 0,
+        "totalPaid": 7,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 7,
+            "interest": 0,
+            "principal": 4,
+            "payment": 4,
+            "closingBalance": 3
+          },
+          {
+            "number": 2,
+            "openingBalance": 3,
+            "interest": 0,
+            "principal": 3,
+            "payment": 3,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 1,
+      "periods": 2,
+      "method": "EQUAL_PRINCIPAL",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 0,
+        "totalPaid": 7,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 7,
+            "interest": 0,
+            "principal": 4,
+            "payment": 4,
+            "closingBalance": 3
+          },
+          {
+            "number": 2,
+            "openingBalance": 3,
+            "interest": 0,
+            "principal": 3,
+            "payment": 3,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 7,
+      "rateBasisPoints": 1,
+      "periods": 2,
+      "method": "INTEREST_ONLY",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 0,
+        "totalPaid": 7,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 7,
+            "interest": 0,
+            "principal": 0,
+            "payment": 0,
+            "closingBalance": 7
+          },
+          {
+            "number": 2,
+            "openingBalance": 7,
+            "interest": 0,
+            "principal": 7,
+            "payment": 7,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 100000,
+      "rateBasisPoints": 1500,
+      "periods": 6,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "levelPayment": 26424,
+        "totalInterest": 58538,
+        "totalPaid": 158538,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 100000,
+            "interest": 15000,
+            "principal": 11424,
+            "payment": 26424,
+            "closingBalance": 88576
+          },
+          {
+            "number": 2,
+            "openingBalance": 88576,
+            "interest": 13286,
+            "principal": 13138,
+            "payment": 26424,
+            "closingBalance": 75438
+          },
+          {
+            "number": 3,
+            "openingBalance": 75438,
+            "interest": 11315,
+            "principal": 15109,
+            "payment": 26424,
+            "closingBalance": 60329
+          },
+          {
+            "number": 4,
+            "openingBalance": 60329,
+            "interest": 9049,
+            "principal": 17375,
+            "payment": 26424,
+            "closingBalance": 42954
+          },
+          {
+            "number": 5,
+            "openingBalance": 42954,
+            "interest": 6443,
+            "principal": 19981,
+            "payment": 26424,
+            "closingBalance": 22973
+          },
+          {
+            "number": 6,
+            "openingBalance": 22973,
+            "interest": 3445,
+            "principal": 22973,
+            "payment": 26418,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 100000,
+      "rateBasisPoints": 1500,
+      "periods": 6,
+      "method": "EQUAL_PRINCIPAL",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 52495,
+        "totalPaid": 152495,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 100000,
+            "interest": 15000,
+            "principal": 16667,
+            "payment": 31667,
+            "closingBalance": 83333
+          },
+          {
+            "number": 2,
+            "openingBalance": 83333,
+            "interest": 12499,
+            "principal": 16667,
+            "payment": 29166,
+            "closingBalance": 66666
+          },
+          {
+            "number": 3,
+            "openingBalance": 66666,
+            "interest": 9999,
+            "principal": 16667,
+            "payment": 26666,
+            "closingBalance": 49999
+          },
+          {
+            "number": 4,
+            "openingBalance": 49999,
+            "interest": 7499,
+            "principal": 16667,
+            "payment": 24166,
+            "closingBalance": 33332
+          },
+          {
+            "number": 5,
+            "openingBalance": 33332,
+            "interest": 4999,
+            "principal": 16666,
+            "payment": 21665,
+            "closingBalance": 16666
+          },
+          {
+            "number": 6,
+            "openingBalance": 16666,
+            "interest": 2499,
+            "principal": 16666,
+            "payment": 19165,
+            "closingBalance": 0
+          }
+        ]
+      }
+    },
+    {
+      "principal": 100000,
+      "rateBasisPoints": 1500,
+      "periods": 6,
+      "method": "INTEREST_ONLY",
+      "expected": {
+        "levelPayment": null,
+        "totalInterest": 90000,
+        "totalPaid": 190000,
+        "instalments": [
+          {
+            "number": 1,
+            "openingBalance": 100000,
+            "interest": 15000,
+            "principal": 0,
+            "payment": 15000,
+            "closingBalance": 100000
+          },
+          {
+            "number": 2,
+            "openingBalance": 100000,
+            "interest": 15000,
+            "principal": 0,
+            "payment": 15000,
+            "closingBalance": 100000
+          },
+          {
+            "number": 3,
+            "openingBalance": 100000,
+            "interest": 15000,
+            "principal": 0,
+            "payment": 15000,
+            "closingBalance": 100000
+          },
+          {
+            "number": 4,
+            "openingBalance": 100000,
+            "interest": 15000,
+            "principal": 0,
+            "payment": 15000,
+            "closingBalance": 100000
+          },
+          {
+            "number": 5,
+            "openingBalance": 100000,
+            "interest": 15000,
+            "principal": 0,
+            "payment": 15000,
+            "closingBalance": 100000
+          },
+          {
+            "number": 6,
+            "openingBalance": 100000,
+            "interest": 15000,
+            "principal": 100000,
+            "payment": 115000,
+            "closingBalance": 0
+          }
+        ]
+      }
+    }
+  ]
+}

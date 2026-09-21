@@ -1,0 +1,181 @@
+{
+  "formatVersion": 1,
+  "description": "Deposits, interest and holds. What the bank account holds equals what is on deposit, to the unit, after every step.",
+  "deposits": [
+    {
+      "rateBasisPoints": 500,
+      "amount": 10000,
+      "periods": 3,
+      "expected": {
+        "steps": [
+          {
+            "kind": "deposit",
+            "amount": 10000,
+            "balance": 10000
+          },
+          {
+            "kind": "interest",
+            "amount": 500,
+            "balance": 10500
+          },
+          {
+            "kind": "interest",
+            "amount": 525,
+            "balance": 11025
+          },
+          {
+            "kind": "interest",
+            "amount": 551,
+            "balance": 11576
+          }
+        ],
+        "principal": 10000,
+        "accruedInterest": 1576,
+        "balance": 11576,
+        "maturityValue": 12761
+      }
+    },
+    {
+      "rateBasisPoints": 200,
+      "amount": 5000,
+      "periods": 3,
+      "expected": {
+        "steps": [
+          {
+            "kind": "deposit",
+            "amount": 5000,
+            "balance": 5000
+          },
+          {
+            "kind": "interest",
+            "amount": 100,
+            "balance": 5100
+          },
+          {
+            "kind": "interest",
+            "amount": 102,
+            "balance": 5202
+          },
+          {
+            "kind": "interest",
+            "amount": 104,
+            "balance": 5306
+          }
+        ],
+        "principal": 5000,
+        "accruedInterest": 306,
+        "balance": 5306,
+        "maturityValue": 5520
+      }
+    },
+    {
+      "rateBasisPoints": 1,
+      "amount": 100,
+      "periods": 5,
+      "expected": {
+        "steps": [
+          {
+            "kind": "deposit",
+            "amount": 100,
+            "balance": 100
+          },
+          {
+            "kind": "interest",
+            "amount": 0,
+            "balance": 100
+          },
+          {
+            "kind": "interest",
+            "amount": 0,
+            "balance": 100
+          },
+          {
+            "kind": "interest",
+            "amount": 0,
+            "balance": 100
+          },
+          {
+            "kind": "interest",
+            "amount": 0,
+            "balance": 100
+          },
+          {
+            "kind": "interest",
+            "amount": 0,
+            "balance": 100
+          }
+        ],
+        "principal": 100,
+        "accruedInterest": 0,
+        "balance": 100,
+        "maturityValue": 100
+      }
+    },
+    {
+      "rateBasisPoints": 0,
+      "amount": 1234,
+      "periods": 2,
+      "expected": {
+        "steps": [
+          {
+            "kind": "deposit",
+            "amount": 1234,
+            "balance": 1234
+          },
+          {
+            "kind": "interest",
+            "amount": 0,
+            "balance": 1234
+          },
+          {
+            "kind": "interest",
+            "amount": 0,
+            "balance": 1234
+          }
+        ],
+        "principal": 1234,
+        "accruedInterest": 0,
+        "balance": 1234,
+        "maturityValue": 1234
+      }
+    },
+    {
+      "rateBasisPoints": 10000,
+      "amount": 7,
+      "periods": 4,
+      "expected": {
+        "steps": [
+          {
+            "kind": "deposit",
+            "amount": 7,
+            "balance": 7
+          },
+          {
+            "kind": "interest",
+            "amount": 7,
+            "balance": 14
+          },
+          {
+            "kind": "interest",
+            "amount": 14,
+            "balance": 28
+          },
+          {
+            "kind": "interest",
+            "amount": 28,
+            "balance": 56
+          },
+          {
+            "kind": "interest",
+            "amount": 56,
+            "balance": 112
+          }
+        ],
+        "principal": 7,
+        "accruedInterest": 105,
+        "balance": 112,
+        "maturityValue": 448
+      }
+    }
+  ]
+}

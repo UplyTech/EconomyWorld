@@ -1,0 +1,82 @@
+{
+  "name": "@uplytech/economyworld",
+  "version": "2.0.0",
+  "description": "Balances, double-entry bookings, inventories, shops and trades for community bots and forums. Pure calculation: no storage, no platform binding, integer amounts only. Play money — no real currency, no payouts, no random payouts.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "examples": "vite-node examples/basic.ts && vite-node examples/discord-bot-integration.ts && vite-node examples/financial-system.ts",
+    "lint": "eslint src tests examples --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
+  },
+  "keywords": [
+    "economy",
+    "currency",
+    "balance",
+    "ledger",
+    "double-entry",
+    "inventory",
+    "shop",
+    "trading",
+    "virtual-currency",
+    "discord-bot",
+    "community",
+    "uplytech",
+    "economyworld"
+  ],
+  "author": "UplyTech (Tim Hauke) <dev@uplytech.de>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UplyTech/EconomyWorld.git",
+    "directory": "typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/UplyTech/EconomyWorld/issues"
+  },
+  "homepage": "https://github.com/UplyTech/EconomyWorld#readme",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitest/coverage-v8": "^1.6.0",
+    "eslint": "^8.57.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.5.4",
+    "vite-node": "^1.6.1",
+    "vitest": "^1.6.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

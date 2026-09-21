@@ -1,0 +1,157 @@
+{
+  "formatVersion": 1,
+  "description": "Primitive bookings. Every posting is double-entry and its lines always sum to zero — the property that makes 'no currency appeared from nowhere' checkable rather than hoped for.",
+  "baseTimestampMs": 1700000000000,
+  "cases": [
+    {
+      "id": "credit-issues-from-the-mint",
+      "description": "New currency enters the economy and the mint goes negative by exactly that much.",
+      "expected": {
+        "kind": "CREDIT",
+        "amount": 500,
+        "scope": "guild-1",
+        "currency": "COIN",
+        "occurredAt": 1700000000000,
+        "reverses": null,
+        "lines": [
+          {
+            "account": "guild-1/system:mint/COIN",
+            "delta": -500,
+            "balanceBefore": 0,
+            "balanceAfter": -500
+          },
+          {
+            "account": "guild-1/ana/COIN",
+            "delta": 500,
+            "balanceBefore": 0,
+            "balanceAfter": 500
+          }
+        ],
+        "balances": {
+          "guild-1/system:mint/COIN": -500,
+          "guild-1/ana/COIN": 500
+        }
+      }
+    },
+    {
+      "id": "debit-removes-to-the-sink",
+      "description": "Currency leaves the economy into the sink.",
+      "expected": {
+        "kind": "DEBIT",
+        "amount": 200,
+        "scope": "guild-1",
+        "currency": "COIN",
+        "occurredAt": 1700000000000,
+        "reverses": null,
+        "lines": [
+          {
+            "account": "guild-1/ana/COIN",
+            "delta": -200,
+            "balanceBefore": 500,
+            "balanceAfter": 300
+          },
+          {
+            "account": "guild-1/system:sink/COIN",
+            "delta": 200,
+            "balanceBefore": 0,
+            "balanceAfter": 200
+          }
+        ],
+        "balances": {
+          "guild-1/ana/COIN": 300,
+          "guild-1/system:sink/COIN": 200
+        }
+      }
+    },
+    {
+      "id": "transfer-between-members",
+      "description": "The most common booking: value moves, the total does not change.",
+      "expected": {
+        "kind": "TRANSFER",
+        "amount": 300,
+        "scope": "guild-1",
+        "currency": "COIN",
+        "occurredAt": 1700000000000,
+        "reverses": null,
+        "lines": [
+          {
+            "account": "guild-1/ana/COIN",
+            "delta": -300,
+            "balanceBefore": 500,
+            "balanceAfter": 200
+          },
+          {
+            "account": "guild-1/ben/COIN",
+            "delta": 300,
+            "balanceBefore": 20,
+            "balanceAfter": 320
+          }
+        ],
+        "balances": {
+          "guild-1/ana/COIN": 200,
+          "guild-1/ben/COIN": 320
+        }
+      }
+    },
+    {
+      "id": "transfer-of-the-whole-balance",
+      "description": "Spending everything is allowed; spending more is not.",
+      "expected": {
+        "kind": "TRANSFER",
+        "amount": 500,
+        "scope": "guild-1",
+        "currency": "COIN",
+        "occurredAt": 1700000000000,
+        "reverses": null,
+        "lines": [
+          {
+            "account": "guild-1/ana/COIN",
+            "delta": -500,
+            "balanceBefore": 500,
+            "balanceAfter": 0
+          },
+          {
+            "account": "guild-1/ben/COIN",
+            "delta": 500,
+            "balanceBefore": 0,
+            "balanceAfter": 500
+          }
+        ],
+        "balances": {
+          "guild-1/ana/COIN": 0,
+          "guild-1/ben/COIN": 500
+        }
+      }
+    },
+    {
+      "id": "credit-to-an-explicit-source",
+      "description": "The shop account pays out a refund rather than the mint issuing new currency.",
+      "expected": {
+        "kind": "CREDIT",
+        "amount": 200,
+        "scope": "guild-1",
+        "currency": "COIN",
+        "occurredAt": 1700000000000,
+        "reverses": null,
+        "lines": [
+          {
+            "account": "guild-1/system:shop/COIN",
+            "delta": -200,
+            "balanceBefore": 1000,
+            "balanceAfter": 800
+          },
+          {
+            "account": "guild-1/ana/COIN",
+            "delta": 200,
+            "balanceBefore": 100,
+            "balanceAfter": 300
+          }
+        ],
+        "balances": {
+          "guild-1/system:shop/COIN": 800,
+          "guild-1/ana/COIN": 300
+        }
+      }
+    }
+  ]
+}

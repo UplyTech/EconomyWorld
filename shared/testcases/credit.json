@@ -1,0 +1,291 @@
+{
+  "formatVersion": 1,
+  "description": "Loans repaid instalment by instalment. Capital returns to the credit account and interest becomes fee revenue, so the credit account reaches exactly zero.",
+  "loans": [
+    {
+      "principal": 120000,
+      "rateBasisPoints": 100,
+      "periods": 12,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "totalInterest": 7936,
+        "totalPaid": 127936,
+        "payments": [
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 1200,
+            "toPrincipal": 9462,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 1105,
+            "toPrincipal": 9557,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 1009,
+            "toPrincipal": 9653,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 913,
+            "toPrincipal": 9749,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 815,
+            "toPrincipal": 9847,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 717,
+            "toPrincipal": 9945,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 617,
+            "toPrincipal": 10045,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 517,
+            "toPrincipal": 10145,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 415,
+            "toPrincipal": 10247,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 313,
+            "toPrincipal": 10349,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10662,
+            "toFees": 0,
+            "toInterest": 210,
+            "toPrincipal": 10452,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10654,
+            "toFees": 0,
+            "toInterest": 105,
+            "toPrincipal": 10549,
+            "instalmentsCleared": 1
+          }
+        ],
+        "finalState": "SETTLED",
+        "creditAccount": 0,
+        "feeAccount": 7936
+      }
+    },
+    {
+      "principal": 50000,
+      "rateBasisPoints": 750,
+      "periods": 6,
+      "method": "EQUAL_PRINCIPAL",
+      "expected": {
+        "totalInterest": 13120,
+        "totalPaid": 63120,
+        "payments": [
+          {
+            "amount": 12084,
+            "toFees": 0,
+            "toInterest": 3750,
+            "toPrincipal": 8334,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 11458,
+            "toFees": 0,
+            "toInterest": 3124,
+            "toPrincipal": 8334,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10832,
+            "toFees": 0,
+            "toInterest": 2499,
+            "toPrincipal": 8333,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 10207,
+            "toFees": 0,
+            "toInterest": 1874,
+            "toPrincipal": 8333,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 9582,
+            "toFees": 0,
+            "toInterest": 1249,
+            "toPrincipal": 8333,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 8957,
+            "toFees": 0,
+            "toInterest": 624,
+            "toPrincipal": 8333,
+            "instalmentsCleared": 1
+          }
+        ],
+        "finalState": "SETTLED",
+        "creditAccount": 0,
+        "feeAccount": 13120
+      }
+    },
+    {
+      "principal": 9999,
+      "rateBasisPoints": 1250,
+      "periods": 4,
+      "method": "INTEREST_ONLY",
+      "expected": {
+        "totalInterest": 4996,
+        "totalPaid": 14995,
+        "payments": [
+          {
+            "amount": 1249,
+            "toFees": 0,
+            "toInterest": 1249,
+            "toPrincipal": 0,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 1249,
+            "toFees": 0,
+            "toInterest": 1249,
+            "toPrincipal": 0,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 1249,
+            "toFees": 0,
+            "toInterest": 1249,
+            "toPrincipal": 0,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 11248,
+            "toFees": 0,
+            "toInterest": 1249,
+            "toPrincipal": 9999,
+            "instalmentsCleared": 1
+          }
+        ],
+        "finalState": "SETTLED",
+        "creditAccount": 0,
+        "feeAccount": 4996
+      }
+    },
+    {
+      "principal": 101,
+      "rateBasisPoints": 1,
+      "periods": 3,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "totalInterest": 0,
+        "totalPaid": 101,
+        "payments": [
+          {
+            "amount": 34,
+            "toFees": 0,
+            "toInterest": 0,
+            "toPrincipal": 34,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 34,
+            "toFees": 0,
+            "toInterest": 0,
+            "toPrincipal": 34,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 33,
+            "toFees": 0,
+            "toInterest": 0,
+            "toPrincipal": 33,
+            "instalmentsCleared": 1
+          }
+        ],
+        "finalState": "SETTLED",
+        "creditAccount": 0,
+        "feeAccount": 0
+      }
+    },
+    {
+      "principal": 1000000,
+      "rateBasisPoints": 0,
+      "periods": 5,
+      "method": "EQUAL_INSTALMENT",
+      "expected": {
+        "totalInterest": 0,
+        "totalPaid": 1000000,
+        "payments": [
+          {
+            "amount": 200000,
+            "toFees": 0,
+            "toInterest": 0,
+            "toPrincipal": 200000,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 200000,
+            "toFees": 0,
+            "toInterest": 0,
+            "toPrincipal": 200000,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 200000,
+            "toFees": 0,
+            "toInterest": 0,
+            "toPrincipal": 200000,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 200000,
+            "toFees": 0,
+            "toInterest": 0,
+            "toPrincipal": 200000,
+            "instalmentsCleared": 1
+          },
+          {
+            "amount": 200000,
+            "toFees": 0,
+            "toInterest": 0,
+            "toPrincipal": 200000,
+            "instalmentsCleared": 1
+          }
+        ],
+        "finalState": "SETTLED",
+        "creditAccount": 0,
+        "feeAccount": 0
+      }
+    }
+  ]
+}

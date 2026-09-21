@@ -1,0 +1,99 @@
+{
+  "formatVersion": 1,
+  "description": "A purchase changes three things together: the balance, the inventory and the stock. They belong in one database transaction.",
+  "baseTimestampMs": 1700000000000,
+  "cases": [
+    {
+      "id": "single-unit",
+      "unitPrice": 50,
+      "quantity": 1,
+      "balance": 500,
+      "stock": 5,
+      "expected": {
+        "totalPrice": 50,
+        "quantity": 1,
+        "balances": {
+          "guild-1/ana/COIN": 450,
+          "guild-1/system:shop/COIN": 50
+        },
+        "remainingStock": 4,
+        "slots": [
+          {
+            "itemId": "potion",
+            "quantity": 1
+          }
+        ],
+        "maxPurchasable": 5
+      }
+    },
+    {
+      "id": "several-units",
+      "unitPrice": 50,
+      "quantity": 3,
+      "balance": 500,
+      "stock": 10,
+      "expected": {
+        "totalPrice": 150,
+        "quantity": 3,
+        "balances": {
+          "guild-1/ana/COIN": 350,
+          "guild-1/system:shop/COIN": 150
+        },
+        "remainingStock": 7,
+        "slots": [
+          {
+            "itemId": "potion",
+            "quantity": 3
+          }
+        ],
+        "maxPurchasable": 10
+      }
+    },
+    {
+      "id": "spends-the-whole-balance",
+      "unitPrice": 100,
+      "quantity": 5,
+      "balance": 500,
+      "stock": null,
+      "expected": {
+        "totalPrice": 500,
+        "quantity": 5,
+        "balances": {
+          "guild-1/ana/COIN": 0,
+          "guild-1/system:shop/COIN": 500
+        },
+        "remainingStock": null,
+        "slots": [
+          {
+            "itemId": "potion",
+            "quantity": 5
+          }
+        ],
+        "maxPurchasable": 5
+      }
+    },
+    {
+      "id": "free-offer",
+      "unitPrice": 0,
+      "quantity": 2,
+      "balance": 0,
+      "stock": 10,
+      "expected": {
+        "totalPrice": 0,
+        "quantity": 2,
+        "balances": {
+          "guild-1/ana/COIN": 0,
+          "guild-1/system:shop/COIN": 0
+        },
+        "remainingStock": 8,
+        "slots": [
+          {
+            "itemId": "potion",
+            "quantity": 2
+          }
+        ],
+        "maxPurchasable": 10
+      }
+    }
+  ]
+}

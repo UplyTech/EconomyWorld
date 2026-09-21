@@ -1,0 +1,165 @@
+{
+  "formatVersion": 1,
+  "description": "Inventories are value objects: every operation returns a new one, so a failed booking cannot leave a half-applied change behind.",
+  "sequences": [
+    {
+      "id": "add-and-remove",
+      "start": [],
+      "steps": [
+        {
+          "op": "add",
+          "itemId": "potion",
+          "quantity": 3,
+          "expected": {
+            "deltas": [
+              {
+                "itemId": "potion",
+                "delta": 3,
+                "quantityBefore": 0,
+                "quantityAfter": 3
+              }
+            ],
+            "slots": [
+              {
+                "itemId": "potion",
+                "quantity": 3
+              }
+            ]
+          }
+        },
+        {
+          "op": "add",
+          "itemId": "potion",
+          "quantity": 4,
+          "expected": {
+            "deltas": [
+              {
+                "itemId": "potion",
+                "delta": 4,
+                "quantityBefore": 3,
+                "quantityAfter": 7
+              }
+            ],
+            "slots": [
+              {
+                "itemId": "potion",
+                "quantity": 7
+              }
+            ]
+          }
+        },
+        {
+          "op": "remove",
+          "itemId": "potion",
+          "quantity": 5,
+          "expected": {
+            "deltas": [
+              {
+                "itemId": "potion",
+                "delta": -5,
+                "quantityBefore": 7,
+                "quantityAfter": 2
+              }
+            ],
+            "slots": [
+              {
+                "itemId": "potion",
+                "quantity": 2
+              }
+            ]
+          }
+        },
+        {
+          "op": "add",
+          "itemId": "sword",
+          "quantity": 1,
+          "expected": {
+            "deltas": [
+              {
+                "itemId": "sword",
+                "delta": 1,
+                "quantityBefore": 0,
+                "quantityAfter": 1
+              }
+            ],
+            "slots": [
+              {
+                "itemId": "potion",
+                "quantity": 2
+              },
+              {
+                "itemId": "sword",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        {
+          "op": "remove",
+          "itemId": "potion",
+          "quantity": 2,
+          "expected": {
+            "deltas": [
+              {
+                "itemId": "potion",
+                "delta": -2,
+                "quantityBefore": 2,
+                "quantityAfter": 0
+              }
+            ],
+            "slots": [
+              {
+                "itemId": "sword",
+                "quantity": 1
+              }
+            ]
+          }
+        }
+      ],
+      "finalSlots": [
+        {
+          "itemId": "sword",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "id": "fill-a-stack-exactly",
+      "start": [
+        {
+          "itemId": "potion",
+          "quantity": 8
+        }
+      ],
+      "steps": [
+        {
+          "op": "add",
+          "itemId": "potion",
+          "quantity": 2,
+          "expected": {
+            "deltas": [
+              {
+                "itemId": "potion",
+                "delta": 2,
+                "quantityBefore": 8,
+                "quantityAfter": 10
+              }
+            ],
+            "slots": [
+              {
+                "itemId": "potion",
+                "quantity": 10
+              }
+            ]
+          }
+        }
+      ],
+      "finalSlots": [
+        {
+          "itemId": "potion",
+          "quantity": 10
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "formatVersion": 1,
+  "description": "Decay is charged per whole elapsed period, so running it nightly costs the same as running it once a month. The flat amount is taken first, then the permille share of what remains.",
+  "baseTimestampMs": 1700000000000,
+  "cases": [
+    {
+      "id": "flat-after-grace@259200000",
+      "rule": {
+        "amountPerPeriod": 10,
+        "permillePerPeriod": 0,
+        "periodSeconds": 86400,
+        "floor": 0,
+        "graceSeconds": 604800
+      },
+      "balance": 1000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 259200000,
+      "expected": {
+        "amount": 0,
+        "periods": 0,
+        "previousBalance": 1000,
+        "newBalance": 1000,
+        "appliedUpTo": 1700604800000,
+        "booked": false
+      }
+    },
+    {
+      "id": "flat-after-grace@864000000",
+      "rule": {
+        "amountPerPeriod": 10,
+        "permillePerPeriod": 0,
+        "periodSeconds": 86400,
+        "floor": 0,
+        "graceSeconds": 604800
+      },
+      "balance": 1000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 864000000,
+      "expected": {
+        "amount": 30,
+        "periods": 3,
+        "previousBalance": 1000,
+        "newBalance": 970,
+        "appliedUpTo": 1700864000000,
+        "booked": true
+      }
+    },
+    {
+      "id": "flat-after-grace@2592000000",
+      "rule": {
+        "amountPerPeriod": 10,
+        "permillePerPeriod": 0,
+        "periodSeconds": 86400,
+        "floor": 0,
+        "graceSeconds": 604800
+      },
+      "balance": 1000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 2592000000,
+      "expected": {
+        "amount": 230,
+        "periods": 23,
+        "previousBalance": 1000,
+        "newBalance": 770,
+        "appliedUpTo": 1702592000000,
+        "booked": true
+      }
+    },
+    {
+      "id": "percentage-share@86400000",
+      "rule": {
+        "amountPerPeriod": 0,
+        "permillePerPeriod": 100,
+        "periodSeconds": 86400,
+        "floor": 0,
+        "graceSeconds": 0
+      },
+      "balance": 1000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 86400000,
+      "expected": {
+        "amount": 100,
+        "periods": 1,
+        "previousBalance": 1000,
+        "newBalance": 900,
+        "appliedUpTo": 1700086400000,
+        "booked": true
+      }
+    },
+    {
+      "id": "percentage-share@172800000",
+      "rule": {
+        "amountPerPeriod": 0,
+        "permillePerPeriod": 100,
+        "periodSeconds": 86400,
+        "floor": 0,
+        "graceSeconds": 0
+      },
+      "balance": 1000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 172800000,
+      "expected": {
+        "amount": 190,
+        "periods": 2,
+        "previousBalance": 1000,
+        "newBalance": 810,
+        "appliedUpTo": 1700172800000,
+        "booked": true
+      }
+    },
+    {
+      "id": "percentage-share@432000000",
+      "rule": {
+        "amountPerPeriod": 0,
+        "permillePerPeriod": 100,
+        "periodSeconds": 86400,
+        "floor": 0,
+        "graceSeconds": 0
+      },
+      "balance": 1000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 432000000,
+      "expected": {
+        "amount": 408,
+        "periods": 5,
+        "previousBalance": 1000,
+        "newBalance": 592,
+        "appliedUpTo": 1700432000000,
+        "booked": true
+      }
+    },
+    {
+      "id": "flat-and-share-with-a-floor@86400000",
+      "rule": {
+        "amountPerPeriod": 5,
+        "permillePerPeriod": 50,
+        "periodSeconds": 86400,
+        "floor": 500,
+        "graceSeconds": 0
+      },
+      "balance": 2000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 86400000,
+      "expected": {
+        "amount": 104,
+        "periods": 1,
+        "previousBalance": 2000,
+        "newBalance": 1896,
+        "appliedUpTo": 1700086400000,
+        "booked": true
+      }
+    },
+    {
+      "id": "flat-and-share-with-a-floor@864000000",
+      "rule": {
+        "amountPerPeriod": 5,
+        "permillePerPeriod": 50,
+        "periodSeconds": 86400,
+        "floor": 500,
+        "graceSeconds": 0
+      },
+      "balance": 2000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 864000000,
+      "expected": {
+        "amount": 837,
+        "periods": 10,
+        "previousBalance": 2000,
+        "newBalance": 1163,
+        "appliedUpTo": 1700864000000,
+        "booked": true
+      }
+    },
+    {
+      "id": "flat-and-share-with-a-floor@31536000000",
+      "rule": {
+        "amountPerPeriod": 5,
+        "permillePerPeriod": 50,
+        "periodSeconds": 86400,
+        "floor": 500,
+        "graceSeconds": 0
+      },
+      "balance": 2000,
+      "lastActivityAt": 1700000000000,
+      "offsetMs": 31536000000,
+      "expected": {
+        "amount": 1500,
+        "periods": 365,
+        "previousBalance": 2000,
+        "newBalance": 500,
+        "appliedUpTo": 1731536000000,
+        "booked": true
+      }
+    }
+  ]
+}
