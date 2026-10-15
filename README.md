@@ -10,7 +10,7 @@
 
 > **Status: built ahead of a named consumer**
 >
-> The concept behind this package ([`package-economyworld.md`](../../../Dokumente/Konzepte/package-economyworld.md))
+> The concept behind this package ([`package-economyworld.md`](../../../01-company/concepts/package-economyworld.md))
 > sets six conditions before it should be written, and today none of them are
 > met — no UplyTech product has an economy, and no maintainer is named. It was
 > built anyway, on request. Two things follow, and they are worth knowing before
