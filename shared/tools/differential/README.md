@@ -131,7 +131,7 @@ up.
 
 | Workflow | Runs |
 |---|---|
-| `ci.yml` → `parity` | Seed 1, 20,000 cases, on every push and pull request. Deterministic, so a red build is one command to reproduce. |
+| `ci.yml` → `parity` | Seed 1, 20,000 cases, on every push to `main`. Deterministic, so a red build is one command to reproduce. |
 | `security.yml` → `parity-fuzz` | A **random** seed, 200,000 cases, nightly. This is the one that goes looking; the seed is printed so a failure is reproducible. |
 
 ## Adding a case kind
