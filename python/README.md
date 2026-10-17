@@ -15,7 +15,7 @@ each of those is deliberately absent.
 ## Install
 
 ```bash
-pip install economyworld
+pip install uplytech-economyworld
 ```
 
 Zero mandatory dependencies. Python 3.10 or newer.

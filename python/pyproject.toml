@@ -3,13 +3,13 @@ requires = ["hatchling>=1.25"]
 build-backend = "hatchling.build"
 
 [project]
-name = "economyworld"
+name = "uplytech-economyworld"
 version = "2.0.0"
 description = "Balances, double-entry bookings, inventories, shops and trades for community bots and forums. Pure calculation: no storage, no platform binding, integer amounts only."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
-authors = [{ name = "UplyTech (Tim Hauke)", email = "dev@uplytech.de" }]
+authors = [{ name = "UplyTech", email = "dev@uplytech.de" }]
 maintainers = [{ name = "UplyTech", email = "dev@uplytech.de" }]
 keywords = [
     "economy",
@@ -44,10 +44,10 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/uplytech/economyworld"
-Repository = "https://github.com/uplytech/economyworld"
-Changelog = "https://github.com/uplytech/economyworld/blob/main/CHANGELOG.md"
-Issues = "https://github.com/uplytech/economyworld/issues"
+Homepage = "https://github.com/UplyTech/EconomyWorld"
+Repository = "https://github.com/UplyTech/EconomyWorld"
+Changelog = "https://github.com/UplyTech/EconomyWorld/blob/main/CHANGELOG.md"
+Issues = "https://github.com/UplyTech/EconomyWorld/issues"
 
 [project.optional-dependencies]
 dev = [

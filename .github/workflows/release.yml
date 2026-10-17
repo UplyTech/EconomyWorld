@@ -1,13 +1,25 @@
 name: Release
 
-# Signed GitHub release, built on the own runner. Nothing is published to npm or
-# PyPI: these packages are unpublished, and the only distribution channel is the
-# set of signed artefacts on the GitHub release (npm tarball, wheel, sdist,
-# SHA256SUMS, provenance.intoto.json, one .sig file per artefact).
+# A tag v* builds, tests, signs and publishes. Order:
 #
-# The signing key is the organisation secret RELEASE_SIGNING_KEY; the public key
-# is release-signing.pub in the repository root. See README, "Security and OpenSSF".
-
+#   verify          ci.yml, the full test suite
+#   build           npm tarball, wheel and sdist, SHA256SUMS and
+#                   provenance.intoto.json, one UplyTech signature per file
+#                   (openssl, see release-signing.pub), GitHub build attestation
+#   github-release  the signed artefacts on the GitHub release
+#   publish-npm     @uplytech/economyworld  (npm publish --provenance)
+#   publish-pypi    uplytech-economyworld  (pypa/gh-action-pypi-publish)
+#
+# Both registries use Trusted Publishing (OIDC): no long-lived registry token
+# exists anywhere. The publish jobs run in the protected environment "release"
+# and only when the repository variables PUBLISH_NPM / PUBLISH_PYPI are "true",
+# which the owner sets once the Trusted Publisher is configured on the registry
+# (see .github/SETTINGS.md). Without them a tag still produces the signed
+# GitHub release.
+#
+# GitHub-hosted runners: this repository is public, and the organisation runner
+# does not serve public repositories. npm Trusted Publishing also only works on
+# GitHub-hosted runners. For public repositories these minutes are free.
 on:
   push:
     tags: ["v*"]
@@ -29,13 +41,18 @@ jobs:
     name: Verify
     uses: ./.github/workflows/ci.yml
 
-  release:
-    name: Build, sign, release
-    runs-on: [self-hosted, server-main]
+  build:
+    name: Build, sign, attest
+    runs-on: ubuntu-latest
     needs: verify
     timeout-minutes: 45
     permissions:
-      contents: write
+      contents: read
+      id-token: write
+      attestations: write
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+      prerelease: ${{ steps.tag.outputs.prerelease }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -58,7 +75,7 @@ jobs:
           KEY: ${{ secrets.RELEASE_SIGNING_KEY }}
         run: |
           if [ -z "$KEY" ]; then
-            echo "::error::secret RELEASE_SIGNING_KEY is empty. It is set at organisation level by the owner; an unsigned release is not created."
+            echo "::error::secret RELEASE_SIGNING_KEY is empty. It is an organisation secret set by the owner; an unsigned release is not created."
             exit 1
           fi
 
@@ -109,17 +126,121 @@ jobs:
         if: always()
         run: rm -f "${RUNNER_TEMP}/release-signing.key"
 
+      - name: Attest the build provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4
+        with:
+          subject-path: |
+            release/*.tgz
+            release/*.whl
+            release/*.tar.gz
+
       - name: Release notes from the changelog
         env:
           VERSION: ${{ steps.tag.outputs.version }}
         run: |
           awk -v v="## [$VERSION]" 'index($0, v) == 1 { inside = 1; next } inside && /^## \[/ { exit } inside { print }' CHANGELOG.md > release-notes.md
 
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release
+          path: release/
+          if-no-files-found: error
+          retention-days: 14
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-notes
+          path: release-notes.md
+          if-no-files-found: error
+          retention-days: 14
+
+  github-release:
+    name: GitHub release
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          persist-credentials: false
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: release
+          path: release
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: release-notes
+
       - name: Create the GitHub release
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          TAG: ${{ steps.tag.outputs.tag }}
-          PRERELEASE: ${{ steps.tag.outputs.prerelease }}
+          TAG: ${{ needs.build.outputs.tag }}
+          PRERELEASE: ${{ needs.build.outputs.prerelease }}
+        run: python3 .github/scripts/release-publish.py "$TAG" release release-notes.md $PRERELEASE
+
+  publish-npm:
+    name: Publish @uplytech/economyworld
+    runs-on: ubuntu-latest
+    needs: [build, github-release]
+    if: vars.PUBLISH_NPM == 'true'
+    timeout-minutes: 15
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: release
+          path: release
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      # Trusted Publishing needs npm 11.5.1 or newer; Node 24 ships it.
+      # A pre-release goes to the "next" dist-tag, never to "latest".
+      - name: Publish with provenance
+        env:
+          PRERELEASE: ${{ needs.build.outputs.prerelease }}
         run: |
-          docker run --rm -v "$PWD:$PWD" -w "$PWD" -e GITHUB_TOKEN -e GITHUB_REPOSITORY \
-            python:3.12-slim python .github/scripts/release-publish.py "$TAG" release release-notes.md $PRERELEASE
+          v=$(npm --version)
+          if [ "$(printf '%s\n' 11.5.1 "$v" | sort -V | head -n1)" != "11.5.1" ]; then
+            echo "::error::npm $v is older than 11.5.1, which Trusted Publishing needs"
+            exit 1
+          fi
+          tag=latest
+          if [ -n "$PRERELEASE" ]; then tag=next; fi
+          npm publish ./release/*.tgz --provenance --access public --tag "$tag"
+
+  publish-pypi:
+    name: Publish uplytech-economyworld
+    runs-on: ubuntu-latest
+    needs: [build, github-release]
+    if: vars.PUBLISH_PYPI == 'true'
+    timeout-minutes: 15
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: release
+          path: release
+
+      - name: Only the wheel and the sdist go to PyPI
+        run: |
+          mkdir dist
+          cp release/*.whl release/*.tar.gz dist/
+          ls -l dist
+
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: dist/
