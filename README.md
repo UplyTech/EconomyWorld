@@ -2,7 +2,7 @@
 
 > A complete economy — balances, banking, credit, investments, markets, fees, billing and reporting — calculated, never stored. Play money, integer amounts, no randomness.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/UplyTech/EconomyWorld/badge)](https://scorecard.dev/viewer/?uri=github.com/UplyTech/EconomyWorld)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue)](./python)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](./typescript)
@@ -326,7 +326,8 @@ EconomyWorld/
 ├── CHANGELOG.md              # one history for both editions
 ├── CONTRIBUTING.md
 ├── SECURITY.md
-├── LICENSE                   # MIT
+├── LICENSE                   # Apache-2.0
+├── NOTICE
 ├── shared/testcases/         # the contract between the editions
 ├── shared/tools/differential/ # the cases nobody wrote down
 ├── python/                   # the primary edition
@@ -352,7 +353,7 @@ EconomyWorld/
 
 ### Releases and how to verify them
 
-A release is created from a `v*` tag by `release.yml`: tests, build, signature, the GitHub release, then the registries. The registry jobs run in the protected environment `release` and use Trusted Publishing (OIDC), so no long-lived registry token exists. Each registry is switched on separately with the repository variables `PUBLISH_NPM` and `PUBLISH_PYPI` once its Trusted Publisher is configured ([.github/SETTINGS.md](./.github/SETTINGS.md)); without them a tag still produces the signed GitHub release.
+A release is created from a `v*` tag by `release.yml`: tests, build, signature, the GitHub release, then the registries. The registry jobs run in the protected environment `release` and use Trusted Publishing (OIDC), so no long-lived registry token exists. Each registry is switched on separately with the repository variables `PUBLISH_NPM` and `PUBLISH_PYPI` once its Trusted Publisher is configured ([.github/SETTINGS.md](./.github/SETTINGS.md)); without them a tag still produces the signed GitHub release. Only a tag on a commit that is on `main` is released.
 
 - **npm**: `@uplytech/economyworld`, published with `npm publish --provenance`. Check with `npm audit signatures` or on the package page ("Built and signed on GitHub Actions").
 - **PyPI**: `uplytech-economyworld`, published with `pypa/gh-action-pypi-publish` (PEP 740 attestations included).
@@ -372,4 +373,6 @@ The signing key is the organisation secret `RELEASE_SIGNING_KEY`; the release jo
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+Apache License 2.0. See [LICENSE](./LICENSE) and [NOTICE](./NOTICE).
+
+Copyright 2021-present UplyTech.

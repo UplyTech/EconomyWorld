@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Copy LICENSE and CHANGELOG.md from the repository root into both editions.
+ * Copy LICENSE, NOTICE and CHANGELOG.md from the repository root into both editions.
  *
  * There is one licence and one history for the whole project, but every
  * published artefact has to carry its own copy: `package.json` lists them under
@@ -23,7 +23,7 @@ const check = process.argv.includes("--check");
 
 const jobs = [];
 for (const edition of ["python", "typescript"]) {
-  for (const file of ["LICENSE", "CHANGELOG.md"]) {
+  for (const file of ["LICENSE", "NOTICE", "CHANGELOG.md"]) {
     jobs.push({
       from: join(root, file),
       to: join(root, edition, file),

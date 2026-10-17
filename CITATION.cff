@@ -15,7 +15,7 @@ authors:
     website: "https://www.uplytech.de"
 repository-code: "https://github.com/UplyTech/EconomyWorld"
 url: "https://github.com/UplyTech/EconomyWorld"
-license: MIT
+license: Apache-2.0
 keywords:
   - economyworld
   - uplytech

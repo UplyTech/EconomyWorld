@@ -2,7 +2,7 @@
 
 > A complete economy for community bots and forums: balances, banking, credit, investments, markets, fees, billing and reporting. Pure calculation — no storage, no platform binding, integer amounts only.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](../LICENSE)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue)](https://python.org)
 
 This is the Python edition. A [TypeScript edition](../typescript) exists and
@@ -352,4 +352,6 @@ edition with the TypeScript one on cases nobody wrote down — see
 
 ## License
 
-MIT — see [LICENSE](../LICENSE).
+Apache License 2.0. See [LICENSE](../LICENSE) and [NOTICE](../NOTICE).
+
+Copyright 2021-present UplyTech.

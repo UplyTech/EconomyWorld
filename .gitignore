@@ -33,8 +33,10 @@ Thumbs.db
 
 # generated copies of the repository-root files (kept so each published artefact carries them)
 python/LICENSE
+python/NOTICE
 python/CHANGELOG.md
 typescript/LICENSE
+typescript/NOTICE
 typescript/CHANGELOG.md
 
 # CI scratch space and release staging (own-runner workflows)
