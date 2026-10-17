@@ -83,8 +83,10 @@ jobs:
           persist-credentials: false
 
       - name: Lint, types, tests with coverage gate, examples
+        env:
+          PYTHON_VERSION: ${{ matrix.python }}
         run: |
-          bash .github/scripts/ci-docker.sh python:${{ matrix.python }}-slim python <<'SH'
+          bash .github/scripts/ci-docker.sh "python:${PYTHON_VERSION}-slim" python <<'SH'
           pip install -e ".[dev]"
           ruff check src tests examples
           ruff format --check src tests examples
@@ -120,8 +122,10 @@ jobs:
           persist-credentials: false
 
       - name: Lint, types, tests with coverage gate, build
+        env:
+          NODE_VERSION: ${{ matrix.node }}
         run: |
-          bash .github/scripts/ci-docker.sh node:${{ matrix.node }}-bookworm-slim typescript <<'SH'
+          bash .github/scripts/ci-docker.sh "node:${NODE_VERSION}-bookworm-slim" typescript <<'SH'
           # `npm ci` and not `npm install`: the lockfile is the point.
           npm ci
           npm run lint
