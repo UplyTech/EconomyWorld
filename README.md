@@ -3,6 +3,7 @@
 > A complete economy — balances, banking, credit, investments, markets, fees, billing and reporting — calculated, never stored. Play money, integer amounts, no randomness.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/UplyTech/EconomyWorld/badge)](https://scorecard.dev/viewer/?uri=github.com/UplyTech/EconomyWorld)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue)](./python)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](./typescript)
 
@@ -95,21 +96,11 @@ this: Python's `make_account` is TypeScript's `account`. Python cannot call it
 ## Install
 
 ```bash
-pip install economyworld          # Python
+pip install uplytech-economyworld   # Python
 npm install @uplytech/economyworld  # TypeScript
 ```
 
-> **Not published to a registry (yet).** `economyworld` is not on PyPI and `@uplytech/economyworld` is not
-> on npm. The commands above work once a version has been published; until then
-> install the signed artefacts from the
-> [GitHub releases](https://github.com/UplyTech/EconomyWorld/releases) (wheel, sdist and npm
-> tarball), after verifying them as described under
-> [Security and OpenSSF](#security-and-openssf):
->
-> ```bash
-> pip install ./economyworld-<version>-py3-none-any.whl
-> npm install ./uplytech-economyworld-<version>.tgz
-> ```
+> **Not on npm or PyPI yet.** The first release is pending the Trusted Publisher setup on both registries. Until then, build from a clone (see [CONTRIBUTING.md](./CONTRIBUTING.md)) or use the signed artefacts of a [GitHub release](https://github.com/UplyTech/EconomyWorld/releases) once one exists.
 
 Neither edition has a single mandatory dependency.
 
@@ -352,21 +343,29 @@ EconomyWorld/
 
 ## Security and OpenSSF
 
-- **CI** runs on the organisation's own runner after a merge to `main` (`ci.yml`, `quality.yml`, `docs.yml`, `security.yml`, `nightly.yml`). There are no pull-request builds on purpose: the runner is root-equivalent, so code from a branch must not run there before a human has read it. The Windows and macOS legs of the old matrix are gone, because the runner is Linux only.
-- **OpenSSF Scorecard** runs weekly from the official container image (`scorecard.yml`); the JSON result is kept as a workflow artefact. This repository is private, so there is no public Scorecard badge (the badge API serves public repositories only) and no SARIF upload (needs GitHub Advanced Security).
-- **CodeQL** is not run: code scanning on private repositories needs GitHub Advanced Security.
+- **CI** runs on GitHub-hosted runners (`ci.yml`, `quality.yml`, `docs.yml`, `security.yml`, `nightly.yml`). The repository is public and the organisation runner serves private repositories only; for public repositories the hosted minutes are free. Pull requests are validated with a read-only token and without secrets; no workflow uses `pull_request_target`. Every action is pinned to a full commit SHA.
+- **OpenSSF Scorecard** runs weekly and on every push to `main` (`scorecard.yml`) and publishes its result; the badge at the top shows the current score.
+- **CodeQL** (`codeql.yml`) and **dependency review** on pull requests (`dependency-review.yml`) run on every change.
 - **OpenSSF Best Practices badge** (bestpractices.dev): pending owner registration.
-- **Supply chain**: actions pinned to commit SHAs, tool images pinned by tag, Dependabot for npm, pip, Docker and GitHub Actions (weekly, minor and patch grouped), gitleaks and OSV scans on a schedule, [SECURITY.md](./SECURITY.md) with private reporting.
-- **Not achievable here**: branch protection and required reviews are repository settings (owner side); with a single maintainer the Scorecard checks for code review and contributors stay low.
+- **Supply chain**: Dependabot for npm, pip, Docker and GitHub Actions (weekly, minor and patch grouped), gitleaks and OSV scans on a schedule, [SECURITY.md](./SECURITY.md) with private reporting.
+- **Not achievable here**: with a single maintainer the Scorecard checks for code review and contributors stay low.
 
 ### Releases and how to verify them
 
-A release is created from a `v*` tag by `release.yml`. It builds the npm tarball, the wheel and the sdist, writes `SHA256SUMS` and an in-toto SLSA provenance statement (`provenance.intoto.json`), signs every file with the UplyTech release key (`<file>.sig`, base64 of an ECDSA P-256 / SHA-256 signature) and attaches everything to the GitHub release. Nothing is pushed to npm or PyPI. The public key is [`release-signing.pub`](./release-signing.pub).
+A release is created from a `v*` tag by `release.yml`: tests, build, signature, the GitHub release, then the registries. The registry jobs run in the protected environment `release` and use Trusted Publishing (OIDC), so no long-lived registry token exists. Each registry is switched on separately with the repository variables `PUBLISH_NPM` and `PUBLISH_PYPI` once its Trusted Publisher is configured ([.github/SETTINGS.md](./.github/SETTINGS.md)); without them a tag still produces the signed GitHub release.
+
+- **npm**: `@uplytech/economyworld`, published with `npm publish --provenance`. Check with `npm audit signatures` or on the package page ("Built and signed on GitHub Actions").
+- **PyPI**: `uplytech-economyworld`, published with `pypa/gh-action-pypi-publish` (PEP 740 attestations included).
+- **GitHub release**: the same artefacts (npm tarball, wheel, sdist), `SHA256SUMS`, an in-toto SLSA provenance statement (`provenance.intoto.json`) and one UplyTech signature per file (`<file>.sig`, base64 of an ECDSA P-256 / SHA-256 signature).
 
 ```bash
+# 1. UplyTech signature (public key: release-signing.pub in this repository)
 base64 -d <file>.sig > <file>.sig.der
 openssl dgst -sha256 -verify release-signing.pub -signature <file>.sig.der <file>
 sha256sum -c SHA256SUMS --ignore-missing
+
+# 2. GitHub build attestation
+gh attestation verify <file> --repo UplyTech/EconomyWorld
 ```
 
 The signing key is the organisation secret `RELEASE_SIGNING_KEY`; the release job fails when it is empty instead of publishing unsigned files.

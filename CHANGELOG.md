@@ -9,6 +9,16 @@ Both language editions share one version number and one history. A release
 happens for both at once, or not at all — two editions on different versions
 would be exactly the drift the shared test vectors exist to prevent.
 
+## [Unreleased]
+
+### Changed
+
+- Licence notice: `Copyright (c) 2021-present UplyTech` (UplyTech has existed as a community since 2021); the author fields name UplyTech only.
+- PyPI distribution name `uplytech-economyworld` (was `economyworld`); the import name is unchanged. npm stays `@uplytech/economyworld`.
+- Releases publish to npm and PyPI with Trusted Publishing (OIDC, no registry token) and npm provenance, after the signed GitHub release. Each registry is switched on with a repository variable once its Trusted Publisher exists. Every artefact also gets a GitHub build attestation.
+- CI runs on GitHub-hosted runners, since the repository is public and the organisation runner serves private repositories only. Pull requests are validated again (read-only token, no secrets); CodeQL, dependency review and a published OpenSSF Scorecard are part of the checks.
+- Repository links point to `github.com/UplyTech/EconomyWorld`.
+
 ## [2.0.0] - 2026-09-09
 
 A complete economy rather than a currency.
