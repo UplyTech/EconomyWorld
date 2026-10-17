@@ -5,11 +5,11 @@ name: CI
 # Every step here can fail, and none of them is allowed a `|| true`. A check
 # that cannot fail is a green tick that says nothing.
 #
-# Runs on the own runner, which is root-equivalent on the host (Docker socket).
-# Pull requests are therefore not validated automatically: code from a branch,
-# Dependabot included, must not run there before a human has read and merged it.
-# Validation happens on main after the merge. Tools run in pinned official images
-# (see .github/scripts/ci-docker.sh); the host has no node, python or java.
+# Public repository: runs on GitHub-hosted runners (free for public repositories;
+# the organisation runner serves private repositories only). Pull
+# requests are validated with a read-only token and without secrets; there is
+# no pull_request_target anywhere. Tools run in pinned official images (see
+# .github/scripts/ci-docker.sh).
 #
 # The Windows and macOS legs of the old matrix are gone: the own runner is
 # Linux only. The libraries touch no filesystem and no clock, so the
@@ -27,6 +27,8 @@ name: CI
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
   # release.yml runs this workflow before it builds the release.
   workflow_call:
@@ -41,7 +43,7 @@ concurrency:
 jobs:
   meta:
     name: Repository consistency
-    runs-on: [self-hosted, server-main]
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -69,7 +71,7 @@ jobs:
 
   python:
     name: Python ${{ matrix.python }}
-    runs-on: [self-hosted, server-main]
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       fail-fast: false
@@ -106,7 +108,7 @@ jobs:
 
   typescript:
     name: Node ${{ matrix.node }}
-    runs-on: [self-hosted, server-main]
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
       fail-fast: false
@@ -138,7 +140,7 @@ jobs:
 
   vectors:
     name: Shared vectors
-    runs-on: [self-hosted, server-main]
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -174,7 +176,7 @@ jobs:
   # something somebody already imagined.
   parity:
     name: The editions agree
-    runs-on: [self-hosted, server-main]
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -193,7 +195,7 @@ jobs:
 
   package:
     name: Packageable artefacts
-    runs-on: [self-hosted, server-main]
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -229,7 +231,7 @@ jobs:
   # One status check that stays named "CI" however the matrix changes.
   ci:
     name: CI
-    runs-on: [self-hosted, server-main]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [meta, python, typescript, vectors, parity, package]
     if: always()
