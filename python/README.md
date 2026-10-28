@@ -354,4 +354,4 @@ edition with the TypeScript one on cases nobody wrote down — see
 
 Apache License 2.0. See [LICENSE](../LICENSE) and [NOTICE](../NOTICE).
 
-Copyright 2021-present UplyTech.
+Copyright (c) 2021-present UplyTech. UplyTech has existed as a community since 2021.
