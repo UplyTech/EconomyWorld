@@ -10,14 +10,14 @@ dist
 .tsup
 scripts
 examples
-.eslintrc.cjs
+eslint.config.mjs
 tsconfig.json
 tsup.config.ts
 vitest.config.ts
 tests
 scripts
 examples
-.eslintrc.cjs
+eslint.config.mjs
 tsconfig.json
 tsup.config.ts
 vitest.config.ts
