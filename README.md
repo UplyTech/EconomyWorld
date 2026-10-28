@@ -5,7 +5,7 @@
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/UplyTech/EconomyWorld/badge)](https://scorecard.dev/viewer/?uri=github.com/UplyTech/EconomyWorld)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue)](./python)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](./typescript)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D22.12-brightgreen)](./typescript)
 
 ---
 

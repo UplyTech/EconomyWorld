@@ -3,7 +3,7 @@
 > A complete economy for community bots and forums: balances, banking, credit, investments, markets, fees, billing and reporting. Pure calculation — no storage, no platform binding, integer amounts only.
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](../LICENSE)
-[![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](https://nodejs.org)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D22.12-brightgreen)](https://nodejs.org)
 
 This is the TypeScript edition. A [Python edition](../python) exists and produces
 identical results — proven by [shared test vectors](../shared/testcases).
@@ -18,7 +18,7 @@ each of those is deliberately absent.
 npm install @uplytech/economyworld
 ```
 
-Zero runtime dependencies. Node 20 or newer. Ships CJS, ESM and types.
+Zero runtime dependencies. Node 22.12 or newer. Ships CJS, ESM and types.
 
 ## The one rule you have to keep
 

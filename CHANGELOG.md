@@ -13,6 +13,7 @@ would be exactly the drift the shared test vectors exist to prevent.
 
 ### Changed
 
+- **Node 22.12 or newer** (`engines.node` was `>=20.0.0`). Node 20 is end-of-life, and CI tests on Node 22 and 24 only.
 - **Licence: Apache License 2.0** (was MIT). `LICENSE` carries the full Apache text, `NOTICE` the attribution `Copyright (c) 2021-present UplyTech` (UplyTech has existed as a community since 2021); both ship in the npm package, the wheel and the sdist. Author fields name UplyTech only.
 - PyPI distribution name `uplytech-economyworld` (was `economyworld`); the import name is unchanged. npm stays `@uplytech/economyworld`.
 - Releases publish to npm and PyPI with Trusted Publishing (OIDC, no registry token) and npm provenance, after the signed GitHub release. Each registry is switched on with a repository variable once its Trusted Publisher exists. Every artefact also gets a GitHub build attestation.
