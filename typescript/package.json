@@ -70,7 +70,7 @@
     "@vitest/coverage-v8": "^5.0.5",
     "eslint": "^10.14.0",
     "tsup": "^9.0.0",
-    "typescript": "^5.5.4",
+    "typescript": "^7.0.2",
     "typescript-eslint": "^8.72.1",
     "vite-node": "^6.0.0",
     "vitest": "^5.0.5"
