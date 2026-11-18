@@ -29,8 +29,20 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def resolve_within_workspace(raw: str) -> Path:
+    """Resolve ``raw`` and refuse anything outside the workspace.
+
+    The base is ``GITHUB_WORKSPACE`` when set, the current directory otherwise.
+    """
+    base = Path(os.environ.get("GITHUB_WORKSPACE") or Path.cwd()).resolve()
+    resolved = Path(raw).resolve()
+    if not resolved.is_relative_to(base):
+        raise SystemExit(f"::error::{raw} is outside the workspace {base}")
+    return resolved
+
+
 def main() -> int:
-    directory = Path(sys.argv[1])
+    directory = resolve_within_workspace(sys.argv[1])
     files = sorted(
         path
         for path in directory.iterdir()
