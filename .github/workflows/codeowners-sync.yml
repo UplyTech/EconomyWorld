@@ -166,6 +166,7 @@ jobs:
             # aus per Token angelegten PRs werden nicht als Verknuepfung erfasst, der verknuepfte Branch schon.
             issue_id=$(gh api "repos/$REPO/issues/$issue" --jq .node_id)
             repo_id=$(gh api "repos/$REPO" --jq .node_id)
+            # shellcheck disable=SC2016
             if ! gh api graphql -f query='mutation($i:ID!,$r:ID!,$o:GitObjectID!,$n:String!){createLinkedBranch(input:{issueId:$i,repositoryId:$r,oid:$o,name:$n}){linkedBranch{id}}}' \
                  -f i="$issue_id" -f r="$repo_id" -f o="$head_sha" -f n="$target" --silent 2>/dev/null; then
               echo "::warning::Verknuepfter Branch nicht moeglich, lege den Branch ohne Verknuepfung an."
