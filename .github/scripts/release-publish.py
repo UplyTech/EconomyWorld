@@ -39,11 +39,23 @@ def request(method: str, url: str, token: str, body: bytes | None = None,
     return json.loads(raw) if raw else {}
 
 
+def resolve_within_workspace(raw: str) -> Path:
+    """Resolve ``raw`` and refuse anything outside the workspace.
+
+    The base is ``GITHUB_WORKSPACE`` when set, the current directory otherwise.
+    """
+    base = Path(os.environ.get("GITHUB_WORKSPACE") or Path.cwd()).resolve()
+    resolved = Path(raw).resolve()
+    if not resolved.is_relative_to(base):
+        raise SystemExit(f"::error::{raw} is outside the workspace {base}")
+    return resolved
+
+
 def main() -> int:
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     prerelease = "--prerelease" in sys.argv
-    tag, directory = args[0], Path(args[1])
-    notes = Path(args[2]).read_text(encoding="utf-8") if len(args) > 2 else ""
+    tag, directory = args[0], resolve_within_workspace(args[1])
+    notes = resolve_within_workspace(args[2]).read_text(encoding="utf-8") if len(args) > 2 else ""
     token, repository = os.environ["GITHUB_TOKEN"], os.environ["GITHUB_REPOSITORY"]
 
     release = request(
