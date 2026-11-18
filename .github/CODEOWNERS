@@ -1,33 +1,3 @@
-# Who has to look at what before it is merged.
-
-*                                   @UplyTech/owners
-
-# The two editions
-/python/                            @UplyTech/owners
-/typescript/                        @UplyTech/owners
-
-# Automation, publishing credentials and the release path
-/.github/                           @UplyTech/owners
-
-# Release-decision territory: a one-line change here moves behaviour for
-# every caller, so it is never merged on one pair of eyes.
-/python/src/economyworld/money.py     @UplyTech/owners
-/python/src/economyworld/ledger.py    @UplyTech/owners
-/python/src/economyworld/rounding.py  @UplyTech/owners
-/typescript/src/money.ts              @UplyTech/owners
-/typescript/src/ledger.ts             @UplyTech/owners
-/typescript/src/rounding.ts           @UplyTech/owners
-/typescript/src/exact.ts              @UplyTech/owners
-/shared/                              @UplyTech/owners
-
-# Interest and credit: a wrong number here is somebody's instalment, and it is
-# wrong for the whole term rather than for one transaction.
-/python/src/economyworld/interest.py  @UplyTech/owners
-/python/src/economyworld/credit.py    @UplyTech/owners
-/typescript/src/interest.ts           @UplyTech/owners
-/typescript/src/credit.ts             @UplyTech/owners
-
-# The documents that define what this library is allowed to become
-/CONTRIBUTING.md                    @UplyTech/owners
-/SECURITY.md                        @UplyTech/owners
-/CHANGELOG.md                       @UplyTech/owners
+# Automatisch erzeugt von .github/workflows/codeowners-sync.yml. Nicht von Hand aendern.
+# Team und feste Eigentuemer plus Beitragende mit Schreibrecht auf dieses Repo.
+* @UplyTech/maintainers @VectoDE
