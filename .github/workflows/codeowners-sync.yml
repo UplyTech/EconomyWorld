@@ -1,5 +1,6 @@
 # Haelt .github/CODEOWNERS aktuell: Team maintainers, feste Eigentuemer und
-# Beitragende mit Schreibrecht. Aenderungen kommen immer als Pull Request.
+# Beitragende mit Schreibrecht. Aenderungen kommen immer als Issue plus verknuepfter
+# Pull Request (Closes #N), nie als Push auf den Standardbranch.
 # Vorlage: in jedem Repo identisch. Aenderungen zuerst hier, dann in alle Repos.
 name: CODEOWNERS Sync
 
@@ -7,6 +8,11 @@ on:
   schedule:
     - cron: "17 4 * * 1"
   workflow_dispatch:
+    inputs:
+      force_change:
+        description: "Testaenderung erzwingen (haengt eine Kommentarzeile an), um Issue und PR zu pruefen"
+        type: boolean
+        default: false
 
 permissions: {}
 
@@ -22,6 +28,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
     env:
       GH_TOKEN: ${{ github.token }}
       REPO: ${{ github.repository }}
@@ -30,6 +37,8 @@ jobs:
       FIXED_USERS: "VectoDE"
       BRANCH: chore/codeowners-sync
       FILE: .github/CODEOWNERS
+      LABEL: codeowners-sync
+      FORCE_CHANGE: ${{ inputs.force_change && 'true' || 'false' }}
     steps:
       - name: CODEOWNERS erzeugen
         shell: bash
@@ -85,35 +94,108 @@ jobs:
           cp "$out" "$RUNNER_TEMP/CODEOWNERS.new"
           echo "DEFAULT=$DEFAULT" >> "$GITHUB_ENV"
 
-      - name: Aenderung als Pull Request vorschlagen
+      - name: Issue und verknuepften Pull Request anlegen
         shell: bash
         run: |
           set -euo pipefail
           new="$RUNNER_TEMP/CODEOWNERS.new"
+          cur="$RUNNER_TEMP/CODEOWNERS.cur"
+          if [ "$FORCE_CHANGE" = "true" ]; then
+            echo "# Testaenderung (force_change), Lauf $GITHUB_RUN_ID" >> "$new"
+          fi
+
           cur_json=$(gh api "repos/$REPO/contents/$FILE?ref=$DEFAULT" 2>/dev/null || echo '{}')
           cur_sha=$(jq -r '.sha // empty' <<<"$cur_json")
-          if [ -n "$cur_sha" ] && [ "$(jq -r '.content' <<<"$cur_json" | base64 -d)" = "$(cat "$new")" ]; then
+          jq -r '.content // ""' <<<"$cur_json" | base64 -d > "$cur" 2>/dev/null || : > "$cur"
+          if [ -n "$cur_sha" ] && [ "$(cat "$cur")" = "$(cat "$new")" ]; then
             echo "CODEOWNERS ist aktuell."; exit 0
           fi
 
-          head_sha=$(gh api "repos/$REPO/git/ref/heads/$DEFAULT" --jq .object.sha)
-          if gh api "repos/$REPO/git/ref/heads/$BRANCH" --silent 2>/dev/null; then
-            br_sha=$(gh api "repos/$REPO/contents/$FILE?ref=$BRANCH" --jq .sha 2>/dev/null || true)
-          else
-            gh api -X POST "repos/$REPO/git/refs" -f ref="refs/heads/$BRANCH" -f sha="$head_sha" --silent
-            br_sha="$cur_sha"
+          branch_exists() { gh api "repos/$REPO/git/ref/heads/$1" --silent 2>/dev/null; }
+          open_pr() { gh api "repos/$REPO/pulls?head=$OWNER:$1&state=open" --jq '.[0].number // empty'; }
+
+          # Zielbranch: vorhandener Sync-Branch nur mit offenem PR, sonst neuer Branch mit Datum (kein Force)
+          target="$BRANCH"; pr=""
+          if branch_exists "$target"; then
+            pr=$(open_pr "$target")
+            if [ -z "$pr" ]; then
+              target="$BRANCH-$(date -u +%Y%m%d)"
+              if branch_exists "$target"; then
+                pr=$(open_pr "$target")
+                if [ -z "$pr" ]; then target="$target-$(date -u +%H%M%S)"; fi
+              fi
+            fi
           fi
 
+          br_sha=""
+          if branch_exists "$target"; then
+            br_sha=$(gh api "repos/$REPO/contents/$FILE?ref=$target" --jq .sha 2>/dev/null || true)
+            if [ -n "$br_sha" ] && [ "$(gh api "repos/$REPO/contents/$FILE?ref=$target" --jq .content | base64 -d)" = "$(cat "$new")" ]; then
+              echo "Vorschlag liegt bereits als PR #$pr vor."; exit 0
+            fi
+          fi
+
+          # 1. Issue (vorhandenes offenes Issue mit Label wiederverwenden)
+          gh api "repos/$REPO/labels/$LABEL" --silent 2>/dev/null \
+            || gh api -X POST "repos/$REPO/labels" -f name="$LABEL" -f color="0e8a16" \
+                 -f description="Automatische CODEOWNERS-Aktualisierung" --silent
+          difftxt=$(diff -u "$cur" "$new" | head -n 80 || true)
+          issue=$(gh api "repos/$REPO/issues?labels=$LABEL&state=open&per_page=100" \
+            --jq '[.[] | select(.pull_request == null)][0].number // empty')
+          if [ -z "$issue" ]; then
+            body=$(printf '%s\n' \
+              "Die Contributors- und Rechte-Auswertung weicht von \`$FILE\` ab. Der Workflow \`codeowners-sync\` schlaegt die Aenderung als Pull Request vor." \
+              "" "## Aufgaben" \
+              "- [ ] CODEOWNERS pruefen" \
+              "- [ ] Pull Request gemergt" \
+              "- [ ] \`codeowners/errors\` ist leer (\`gh api repos/$REPO/codeowners/errors\`)" \
+              "" "## Erkannte Aenderungen (Lauf $GITHUB_RUN_ID)" '```diff' "$difftxt" '```')
+            issue=$(jq -n --arg t "CODEOWNERS aktualisieren" --arg b "$body" --arg l "$LABEL" \
+              '{title:$t, body:$b, labels:[$l]}' | gh api -X POST "repos/$REPO/issues" --input - --jq .number)
+            echo "Issue #$issue angelegt."
+          else
+            body=$(printf '%s\n' "Neue erkannte Aenderungen (Lauf $GITHUB_RUN_ID):" "" '```diff' "$difftxt" '```')
+            jq -n --arg b "$body" '{body:$b}' | gh api -X POST "repos/$REPO/issues/$issue/comments" --input - --silent
+            echo "Issue #$issue wiederverwendet."
+          fi
+
+          # 2. Branch und Commit (kein Force)
+          if ! branch_exists "$target"; then
+            head_sha=$(gh api "repos/$REPO/git/ref/heads/$DEFAULT" --jq .object.sha)
+            # Als verknuepfter Branch des Issues anlegen (GraphQL, Token des Laufs): Closing-Keywords
+            # aus per Token angelegten PRs werden nicht als Verknuepfung erfasst, der verknuepfte Branch schon.
+            issue_id=$(gh api "repos/$REPO/issues/$issue" --jq .node_id)
+            repo_id=$(gh api "repos/$REPO" --jq .node_id)
+            # shellcheck disable=SC2016
+            if ! gh api graphql -f query='mutation($i:ID!,$r:ID!,$o:GitObjectID!,$n:String!){createLinkedBranch(input:{issueId:$i,repositoryId:$r,oid:$o,name:$n}){linkedBranch{id}}}' \
+                 -f i="$issue_id" -f r="$repo_id" -f o="$head_sha" -f n="$target" --silent 2>/dev/null; then
+              echo "::warning::Verknuepfter Branch nicht moeglich, lege den Branch ohne Verknuepfung an."
+              gh api -X POST "repos/$REPO/git/refs" -f ref="refs/heads/$target" -f sha="$head_sha" --silent
+            fi
+            br_sha="$cur_sha"
+          fi
           args=(-X PUT "repos/$REPO/contents/$FILE" -f message="chore: CODEOWNERS aktualisieren"
-                -f content="$(base64 -w0 "$new")" -f branch="$BRANCH")
+                -f content="$(base64 -w0 "$new")" -f branch="$target")
           [ -n "$br_sha" ] && args+=(-f sha="$br_sha")
           gh api "${args[@]}" --silent
 
-          if [ -z "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')" ]; then
-            if ! gh pr create --head "$BRANCH" --base "$DEFAULT" \
-                 --title "chore: CODEOWNERS aktualisieren" \
-                 --body "Automatische Aktualisierung aus der Contributors-API (nur Nutzer mit Schreibrecht). Quelle: .github/workflows/codeowners-sync.yml"; then
-              echo "::error::Pull Request konnte nicht angelegt werden (Org-Einstellung Actions darf Pull Requests erstellen pruefen). Branch $BRANCH: https://github.com/$REPO/compare/$DEFAULT...$BRANCH"
+          # 3. Pull Request mit Closes #Issue (vorhandenen aktualisieren)
+          if [ -n "$pr" ]; then
+            pbody=$(gh api "repos/$REPO/pulls/$pr" --jq '.body // ""')
+            case "$pbody" in
+              *"Closes #$issue"*) ;;
+              *) jq -n --arg b "$pbody"$'\n\n'"Closes #$issue" '{body:$b}' \
+                   | gh api -X PATCH "repos/$REPO/pulls/$pr" --input - --silent ;;
+            esac
+            echo "PR #$pr aktualisiert (Issue #$issue)."
+          else
+            pbody=$(printf '%s\n' \
+              "Automatische Aktualisierung aus der Contributors-API (nur Nutzer mit Schreibrecht). Quelle: .github/workflows/codeowners-sync.yml" \
+              "" "Closes #$issue")
+            if ! pr=$(jq -n --arg t "chore: CODEOWNERS aktualisieren" --arg h "$target" --arg b "$DEFAULT" --arg body "$pbody" \
+                 '{title:$t, head:$h, base:$b, body:$body}' | gh api -X POST "repos/$REPO/pulls" --input - --jq .number); then
+              echo "::error::Pull Request konnte nicht angelegt werden (Org-Einstellung Actions darf Pull Requests erstellen pruefen). Branch $target: https://github.com/$REPO/compare/$DEFAULT...$target (Issue #$issue)"
               exit 1
             fi
+            echo "PR #$pr angelegt (Closes #$issue)."
           fi
