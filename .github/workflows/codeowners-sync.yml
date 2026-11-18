@@ -1,0 +1,119 @@
+# Haelt .github/CODEOWNERS aktuell: Team maintainers, feste Eigentuemer und
+# Beitragende mit Schreibrecht. Aenderungen kommen immer als Pull Request.
+# Vorlage: in jedem Repo identisch. Aenderungen zuerst hier, dann in alle Repos.
+name: CODEOWNERS Sync
+
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: codeowners-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: CODEOWNERS aktualisieren
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      OWNER: ${{ github.repository_owner }}
+      TEAM: maintainers
+      FIXED_USERS: "VectoDE"
+      BRANCH: chore/codeowners-sync
+      FILE: .github/CODEOWNERS
+    steps:
+      - name: CODEOWNERS erzeugen
+        shell: bash
+        run: |
+          set -euo pipefail
+          DEFAULT=$(gh api "repos/$REPO" --jq .default_branch)
+          base="@$OWNER/$TEAM"
+          for u in $FIXED_USERS; do base="$base @$u"; done
+
+          # Beitragende: echte, existierende Nutzerkonten, keine Bots
+          writers=""; readers=""
+          while IFS=$'\t' read -r login _; do
+            [ -n "$login" ] || continue
+            gh api "users/$login" --silent 2>/dev/null || continue
+            perm=$(gh api "repos/$REPO/collaborators/$login/permission" --jq .permission 2>/dev/null || echo none)
+            case "$perm" in
+              admin|maintain|write) writers="$writers $login" ;;
+              *) readers="$readers $login" ;;
+            esac
+          done < <(gh api "repos/$REPO/contributors?per_page=100" --paginate \
+            --jq '.[] | select(.type=="User" and (.login|endswith("[bot]")|not)) | [.login,.contributions] | @tsv')
+
+          extra() {
+            for w in $writers; do
+              case " $FIXED_USERS " in *" $w "*) ;; *) printf ' @%s' "$w" ;; esac
+            done
+          }
+
+          out=$(mktemp)
+          {
+            echo "# Automatisch erzeugt von .github/workflows/codeowners-sync.yml. Nicht von Hand aendern."
+            echo "# Team und feste Eigentuemer plus Beitragende mit Schreibrecht auf dieses Repo."
+            echo "* $base$(extra)"
+          } > "$out"
+
+          # Pro Top-Level-Ordner: wer dort am meisten beigetragen hat (nur mit Schreibrecht)
+          while IFS= read -r dir; do
+            [ -n "$dir" ] || continue
+            top=$(gh api "repos/$REPO/commits?path=$dir&per_page=100" \
+              --jq '.[] | .author.login // empty' 2>/dev/null | sort | uniq -c | sort -rn \
+              | while read -r _ l; do
+                  case " $writers " in *" $l "*) echo "$l"; break ;; esac
+                done || true)
+            [ -n "$top" ] || continue
+            case " $FIXED_USERS " in *" $top "*) continue ;; esac
+            echo "/$dir/ $base @$top" >> "$out"
+          done < <(gh api "repos/$REPO/git/trees/$DEFAULT" --jq '.tree[] | select(.type=="tree") | .path' | grep -v '^\.' || true)
+
+          for r in $readers; do
+            echo "# Beitragende ohne Schreibrecht: @$r" >> "$out"
+          done
+
+          cp "$out" "$RUNNER_TEMP/CODEOWNERS.new"
+          echo "DEFAULT=$DEFAULT" >> "$GITHUB_ENV"
+
+      - name: Aenderung als Pull Request vorschlagen
+        shell: bash
+        run: |
+          set -euo pipefail
+          new="$RUNNER_TEMP/CODEOWNERS.new"
+          cur_json=$(gh api "repos/$REPO/contents/$FILE?ref=$DEFAULT" 2>/dev/null || echo '{}')
+          cur_sha=$(jq -r '.sha // empty' <<<"$cur_json")
+          if [ -n "$cur_sha" ] && [ "$(jq -r '.content' <<<"$cur_json" | base64 -d)" = "$(cat "$new")" ]; then
+            echo "CODEOWNERS ist aktuell."; exit 0
+          fi
+
+          head_sha=$(gh api "repos/$REPO/git/ref/heads/$DEFAULT" --jq .object.sha)
+          if gh api "repos/$REPO/git/ref/heads/$BRANCH" --silent 2>/dev/null; then
+            br_sha=$(gh api "repos/$REPO/contents/$FILE?ref=$BRANCH" --jq .sha 2>/dev/null || true)
+          else
+            gh api -X POST "repos/$REPO/git/refs" -f ref="refs/heads/$BRANCH" -f sha="$head_sha" --silent
+            br_sha="$cur_sha"
+          fi
+
+          args=(-X PUT "repos/$REPO/contents/$FILE" -f message="chore: CODEOWNERS aktualisieren"
+                -f content="$(base64 -w0 "$new")" -f branch="$BRANCH")
+          [ -n "$br_sha" ] && args+=(-f sha="$br_sha")
+          gh api "${args[@]}" --silent
+
+          if [ -z "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')" ]; then
+            if ! gh pr create --head "$BRANCH" --base "$DEFAULT" \
+                 --title "chore: CODEOWNERS aktualisieren" \
+                 --body "Automatische Aktualisierung aus der Contributors-API (nur Nutzer mit Schreibrecht). Quelle: .github/workflows/codeowners-sync.yml"; then
+              echo "::error::Pull Request konnte nicht angelegt werden (Org-Einstellung Actions darf Pull Requests erstellen pruefen). Branch $BRANCH: https://github.com/$REPO/compare/$DEFAULT...$BRANCH"
+              exit 1
+            fi
+          fi
