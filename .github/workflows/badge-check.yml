@@ -1,0 +1,63 @@
+name: Badge check
+
+on:
+  schedule:
+    - cron: "5 5 * * 1"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - README.md
+      - .github/workflows/badge-check.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: badge-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  badges:
+    name: README badges
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Check remote README images
+        env:
+          PRIVATE_REPO: "false"
+          REPO: ${{ github.repository }}
+        run: |
+          set -u
+          [ -f README.md ] || { echo "README.md is missing"; exit 1; }
+          urls=$( { grep -oE '!\[[^]]*\]\(https?://[^) ]+' README.md | sed -E 's/^.*\]\(//'
+                    grep -oE '<img[^>]+src="https?://[^"]+' README.md | sed -E 's/^.*src="//'
+                  } | sed 's/&amp;/\&/g' | sort -u )
+          fail=0
+          n=0
+          out="${RUNNER_TEMP:-/tmp}/badge.svg"
+          for u in $urls; do
+            if [ "$PRIVATE_REPO" = "true" ] && printf '%s' "$u" | grep -qE "^https://github\.com/${REPO}/actions/"; then
+              echo "skip (workflow badge of a private repository needs sign-in): $u"
+              continue
+            fi
+            n=$((n + 1))
+            code=$(curl -sSL --max-time 30 --retry 3 --retry-all-errors -A 'uplytech-badge-check' -o "$out" -w '%{http_code}' "$u") || code=000
+            if [ "$code" != "200" ]; then
+              echo "FAIL http $code: $u"
+              fail=1
+              continue
+            fi
+            if grep -qiE 'repo not found|not found|invalid|unknown|inaccessible|no releases|no status|no data|rate limit' "$out"; then
+              echo "FAIL error text inside badge: $u"
+              fail=1
+              continue
+            fi
+            echo "ok: $u"
+            sleep 1
+          done
+          echo "$n badge image(s) checked"
+          exit $fail
